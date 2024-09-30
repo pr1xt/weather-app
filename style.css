@@ -35,12 +35,13 @@ input{
 
 #img_info{
     width: 60vw;    
-    height: 65vh;
+    height: 63vh;
+    padding-left: 25px;
 }
 
 #temp_info{
     width: 60vw;
-    height: 20vh;
+    height: 22vh;
     text-align: center;
 }
 
@@ -75,5 +76,4 @@ input{
 
 #weather-icon{
     font-size:100px;
-    margin-left: 70px;
 }
