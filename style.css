@@ -1,0 +1,79 @@
+body{
+    background: rgb(131,58,180);
+    background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%); 
+}   
+
+input{
+    margin-top: 15px;   
+}
+
+#main_block{
+    width: 90vw;
+    height: 85vh;
+    border: 1px solid black;
+    border-radius: 10px;
+    display: flex;
+    position: absolute;
+    left: 50%;
+    top:47%;
+    transform: translate(-50%, -50%);
+}
+
+#left_info{
+    width: 60vw;
+    height: 85vh;;
+    display: flex;
+    flex-direction: column;
+}
+
+#right_info{
+    width: 30vw;
+    height: 85vh;
+    text-align: center;
+    background-color: rgba(54, 44, 44, 0.308);
+}
+
+#img_info{
+    width: 60vw;    
+    height: 65vh;
+}
+
+#temp_info{
+    width: 60vw;
+    height: 20vh;
+    text-align: center;
+}
+
+#search{
+    padding: 6px;
+    border-radius: 7px;
+    width: 11vw;
+    background-color: rgba(54, 42, 42, 0.675);
+    border: 1px solid black;
+    transition: 0.3s;
+}
+
+#submit{
+    padding: 5px;
+    border-radius: 7px;
+    width: 32px;
+    height: 30px;
+    background-color: rgba(54, 42, 42, 0.675);
+    border: 1px solid black;
+    transition: 0.3s;
+}
+
+#search:hover{
+    background-color: rgba(78, 63, 63, 0.675);
+    border: 1px solid rgb(146, 122, 122);
+}
+
+#submit:hover{
+    background-color: rgba(78, 63, 63, 0.675);
+    border: 1px solid rgb(146, 122, 122);
+}
+
+#weather-icon{
+    font-size:100px;
+    margin-left: 70px;
+}
