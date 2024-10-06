@@ -11,59 +11,16 @@
     <body>
     <?php
         $date = date("Y/m/d - h:i a");
-        $API_KEY = "e4d3cd73d50ad843c052abd36ad08c32";
-        $API_KEY2 = "de8db8bb099afb5953b048671ed39c84";
+        $API_KEY = "1bc5dc0c468f4cd181f70404240210";
 
 
-        function get_coord($location = "Gdańsk"){
-            global $API_KEY, $API_KEY2;
-
-            $geo_url = "http://api.openweathermap.org/geo/1.0/direct?q=$location&limit=2&appid={$API_KEY2}";
-
-            // // Initialize a CURL session.
-            $ch = curl_init();
-
-
-            // // Return Page contents.
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-
-            // //grab URL and pass it to the variable.
-            curl_setopt($ch, CURLOPT_URL, $geo_url);
-
-            $result = curl_exec($ch);    // get data from API page
-
-
-            $data = json_decode($result, true);
-
-            foreach ($data as $city) {
-                $name = $city["name"];
-                $country = $city["country"];
-                $lat = $city['lat'];
-                $lon = $city['lon'];
-
-            }
-            curl_close($ch);
-            return [
-                "name" => $name,
-                "country" => $country,
-                "lat" => $lat,
-                "lon" => $lon
-            ];
-            
-        }
         
-        function get_weather($lon, $lat){
-            global $API_KEY, $API_KEY2; 
-            $url = "https://api.openweathermap.org/data/3.0/onecall?lat={$lat}&units=metric&lon={$lon}&exclude={hourly,daily}&appid={de8db8bb099afb5953b048671ed39c84}";
-
-            // // Initialize a CURL session.
+        function get_weather($loc): array{
+            global $API_KEY; 
+            $url = "http://api.weatherapi.com/v1/current.json?key=$API_KEY&q=$loc&aqi=no";
             $ch = curl_init();
 
-
-            // // Return Page contents.
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-
-            // //grab URL and pass it to the variable.
             curl_setopt($ch, CURLOPT_URL, $url);
 
             $exec_result = curl_exec($ch);    // get data from API page
@@ -71,64 +28,70 @@
             $data = json_decode($exec_result, true);
 
 
-
-            // de8db8bb099afb5953b048671ed39c84
             
-            $temperature = $data;
-            // $feels_like = $data['data'][0]['feels_like'] ?? 'N/A';
-            // $weather_main = $data['data'][0]['weather'][0]['main'] ?? 'N/A';
-            // $weather_description = $data['data'][0]['weather'][0]['description'] ?? 'N/A';
-            // $wind_speed = $data['data'][0]['wind_speed'] ?? 'N/A';
-            // $humidity = $data['data'][0]['humidity'] ?? 'N/A';
+            $name = $data["location"]["name"];
+            $temperature = $data["current"]["temp_c"];
+            $wind_mph = $data["current"]["wind_mph"];
+            $humidity = $data["current"]["humidity"];
+            $feelslike_c = $data["current"]["feelslike_c"];
+            $cloud = $data["current"]["cloud"];
+            $pressure_mb = $data["current"]["pressure_mb"];
+            $text = $data["current"]["condition"]["text"];
+            $icon = $data["current"]["condition"]["icon"];
+
+
             curl_close($ch);
             return [
-
+                "name" => $name,
                 "temperature" => $temperature, 
-                // "feels_like" => $feels_like,
-                // "weather_main" => $weather_main,
-                // "weather_description" => $weather_description,
-                // "wind_speed" => $wind_speed,
-                // "humidity" => $humidity,
-                // "pressure" => $pressure,
-                // "clouds" => $clouds,
+                "wind_mph" => $wind_mph,
+                "feelslike_c" => $feelslike_c,
+                "icon" => $icon,
+                "text" => $text,
+                "humidity" => $humidity,
+                "pressure_mb" => $pressure_mb,
+                "cloud" => $cloud,
             ];
         }
 
+        if(isset($_POST["look"])){
+            $location = $_POST["location"];
 
-        $res_coord = get_coord("Warszawa");
+            $result = get_weather($location);
+
+        }else{ 
+            $result = get_weather("London");
+        }
+
+        //to get $result u should call get_weather($loc) where $loc is string of location in ENGLISH
 
 
-        $lon = strval($res_coord['lon']);
-        $lat = strval($res_coord['lat']);
-        echo''. $lon .'  '.$lat;
-        //21.071432235636 52.2337172 
-        $result = get_weather($lon, $lat );
-
-
-
-        // echo "<h4>Country: " . $result["country"] . "</h4>";
-        // echo "<h4>City: " . $result["name"] . "</h4>";
-        // echo "<h4>Cordinates: " . $result["lat"]. "; ". $result["lon"] . "</h4>";
-        // echo "<h4>Date: " . $date . "</h4>";
     ?>
         <div id="main_block">
             <div id="left_info">
                 <div id="img_info">
-                    <h1 id="weather-icon">🌤️</h1>
                     <?php
-                        // echo "<h1>" . $result["temperature"] . "</h1>";
-                        echo '<pre>'; print_r($result["temperature"]); echo '</pre>';
+                        echo "<img id='weather-icon' src='" . $result["icon"] . "' alt='icon' >";
+                        echo "<h1>" . $result["text"] . "</h1>";
+                        echo "<h1>" . $result["temperature"] . "℃</h1>";
+                        echo "<h2>feels like:" . $result["feelslike_c"] . "℃</h2>";
+                        echo "<h2>wind speed:" . $result["wind_mph"] . "mph</h2>";
+                        echo "<h2>humidity:" . $result["humidity"] . "</h2>";
+                        echo "<h2>clouds:" . $result["cloud"] . "</h2>";
+                        echo "<h2>pressure:" . $result["pressure_mb"] . "</h2>";
                     ?>
                 </div>
                 <div id="temp_info">
-                    
+                    <?php
+                        echo "<h1>" . $result["name"] . "</h1>";
+                    ?>
                 </div>
             </div>
             <div id="right_info"> 
                 <form action="index.php" method="POST">
                     <!-- ❓🌤️🌧️🌦️⛈️⛅🌥️🌨️🌩️📍🔍🔎 -->
                     <input id="search" type="text" name="location" placeholder="Search here">
-                    <input id="submit" type="submit" value="🔎">
+                    <input id="submit" name='look' type="submit" value="🔎">
                 </form>
                 <h2>Ostatnie wyszukiwane:</h2>
             </div>
