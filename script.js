@@ -31,6 +31,9 @@ const ChangeBg = () => {
     else if(document.getElementById("text").innerText == "Overcast"){
         document.body.style.background = "linear-gradient(100deg, rgb(152, 167, 168) 0%, rgb(93, 95, 86) 50%, rgb(93, 95, 86) 100%";
     }
+    else if(document.getElementById("text").innerText == "Mist"){
+        document.body.style.background = "linear-gradient(100deg, rgb(93, 95, 86) 0%, rgb(152, 167, 168) 50%, rgb(93, 95, 86) 100%";
+    }
 };
 
 document.getElementById("submit").addEventListener("click", ChangeBg());
