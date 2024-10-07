@@ -19,7 +19,7 @@ const ChangeBg = () => {
         //night
     }
     else if(document.getElementById("text").innerText == "Patchy rain nearby"){
-        document.body.style.background = "linear-gradient(100deg, rgb(23, 23, 49) 0%, rgb(43, 11, 90) 50%, rgb(238, 245, 199) 70%, rgb(93, 95, 86) 80%, rgb(22, 69, 201) 100%)";
+        document.body.style.background = "linear-gradient(100deg, rgb(33, 97, 194) 0%, rgb(33, 97, 194) 50%, rgb(178, 235, 22) 60%, rgb(93, 95, 86) 80%, rgb(22, 69, 201) 100%)";
         document.getElementById("left_info").style.color = "rgb(209, 205, 205)";
     }
     else if(document.getElementById("text").innerText == "Light rain shower"){
