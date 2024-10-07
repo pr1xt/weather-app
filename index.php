@@ -64,7 +64,8 @@
         }
 
         //to get $result u should call get_weather($loc) where $loc is string of location in ENGLISH
-
+        //without: "ą, ę, ł, ó, ż, ź" if city is polish
+        //"Los_Angles" => "Los Angeles"
 
     ?>
         <div id="main_block">
