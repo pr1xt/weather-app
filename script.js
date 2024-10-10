@@ -9,11 +9,11 @@ const ChangeBg = () => {
         document.body.style.background = "linear-gradient(90deg, rgb(23, 23, 49) 0%, rgb(43, 21, 122) 45%, rgb(35, 15, 105) 65%, rgb(208, 215, 199) 100%)";
         document.getElementById("left_info").style.color = "rgb(209, 205, 205)";
     }
-    else if(document.getElementById("text").innerText == "Partly cloudy"){
+    else if(document.getElementById("text").innerText == "Partly Cloudy"){
         document.body.style.background = "linear-gradient(90deg, rgba(130,201,232,1) 0%, rgba(125,149,173,1) 55%, rgba(210,196,176,1) 100%)";
         //day
     }
-    else if(document.getElementById("text").innerText == "Partly Cloudy"){
+    else if(document.getElementById("text").innerText == "Partly cloudy"){
         document.body.style.background = "linear-gradient(100deg, rgb(23, 23, 49) 0%, rgb(43, 11, 90) 50%, rgb(238, 245, 229) 70%, rgb(152, 167, 168) 80%, rgb(152, 167, 168) 100%)";
         document.getElementById("left_info").style.color = "rgb(209, 205, 205)";
         //night
@@ -56,6 +56,6 @@ document.getElementById("submit").addEventListener("click", ChangeBg());
 
 function change_prompt() {
     let x = document.forms["locForm"]["location"].value;
-    let new_prompt = x.replace(" ", "_");
+    let new_prompt = x.replace(" ", "_").replace("ą", "a").replace("ę", "e").replace("ł", "l").replace("ó", "o").replace("ż", "z").replace("ź", "z");
     document.forms["locForm"]["location"].value = new_prompt; 
 }
