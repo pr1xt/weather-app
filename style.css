@@ -1,7 +1,6 @@
 body{
-    background: linear-gradient(90deg, rgb(131,58,180) 0%, rgb(253,29,29) 50%, rgb(252,176,69) 100%);
+    background: whitesmoke;
 }   
-
 input{
     margin-top: 15px;   
 }
@@ -52,7 +51,7 @@ input{
     width: 11vw;
     background-color: rgba(54, 42, 42, 0.675);
     border: 1px solid black;
-    transition: 0.3s;
+    transition: 0.3s;   
 }
 
 #submit{

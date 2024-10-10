@@ -36,6 +36,7 @@
             $pressure_mb = $data["current"]["pressure_mb"];
             $text = $data["current"]["condition"]["text"];
             $icon = $data["current"]["condition"]["icon"];
+            $localtime = $data["location"]["localtime"];
 
             curl_close($ch);
             return [
@@ -48,6 +49,7 @@
                 "humidity" => $humidity,
                 "pressure_mb" => $pressure_mb,
                 "cloud" => $cloud,
+                "localtime" => $localtime
             ];
         }
 
@@ -62,7 +64,6 @@
 
         //to get $result u should call get_weather($loc) where $loc is string of location in ENGLISH
         //without: "ą, ę, ł, ó, ż, ź" if city is polish
-        //change input: "Los_Angles" => "Los Angeles"
 
     ?>
         <div id="main_block">
@@ -74,19 +75,20 @@
                         echo "<h1>" . $result["temperature"] . "℃</h1>";
                         echo "<h2>Feels like: " . $result["feelslike_c"] . "℃</h2>";
                         echo "<h2>Wind speed: " . $result["wind_mph"] . "mph</h2>";
-                        echo "<h2>Humidity: " . $result["humidity"] . "</h2>";
-                        echo "<h2>Clouds: " . $result["cloud"] . "</h2>";
-                        echo "<h2>Pressure: " . $result["pressure_mb"] . "</h2>";
+                        echo "<h2>Humidity: " . $result["humidity"] . "%</h2>";
+                        echo "<h2>Clouds: " . $result["cloud"] . "%</h2>";
+                        echo "<h2>Pressure: " . $result["pressure_mb"] . "hPa</h2>";
                     ?>
                 </div>
                 <div id="temp_info">
                     <?php
                         echo "<h1 id='city_name'>" . $result["name"] . "</h1>";
+                        echo "<h2 id='localtime'>" . $result["localtime"] . "</h2>";
                     ?>
                 </div>
             </div>
             <div id="right_info"> 
-                <form action="index.php" method="POST">
+                <form name="locForm" action="index.php" onsubmit="return change_prompt()" method="POST">
                     <!-- ❓🌤️🌧️🌦️⛈️⛅🌥️🌨️🌩️📍🔍🔎 -->
                     <input id="search" type="text" name="location" placeholder="Search here" required>
                     <button id="submit" name="look" type="submit">🔎</button>
