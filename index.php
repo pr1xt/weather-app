@@ -12,7 +12,7 @@
     <?php
         $date = date("Y/m/d - h:i a");
         $API_KEY = "1bc5dc0c468f4cd181f70404240210";
-
+        error_reporting(0);
 
         
         function get_weather($loc): array{
@@ -63,7 +63,6 @@
         }
 
         //to get $result u should call get_weather($loc) where $loc is string of location in ENGLISH
-        //without: "ą, ę, ł, ó, ż, ź" if city is polish
 
     ?>
         <div id="main_block">
@@ -91,11 +90,15 @@
                 <form name="locForm" action="index.php" onsubmit="return change_prompt()" method="POST">
                     <!-- ❓🌤️🌧️🌦️⛈️⛅🌥️🌨️🌩️📍🔍🔎 -->
                     <input id="search" type="text" name="location" placeholder="Search here" required>
-                    <button id="submit" name="look" type="submit">🔎</button>
+                    <button id="submit" name="look" type="submit" onclick="search()">🔎</button>
                 </form>
                 <h2>Ostatnie wyszukiwane:</h2>
             </div>
         </div>
+        <!-- <div id="cloud-container">
+            <div id="cloud1" class="cloud cloud-left"><img src="cloud_left.png"></div>
+            <div id="cloud2"class="cloud cloud-right"><img src="cloud_right.png"></div>
+        </div> -->
     </body>
     <script src="script.js"></script>
 </html>

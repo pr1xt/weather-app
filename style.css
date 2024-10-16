@@ -62,6 +62,7 @@ input{
     background-color: rgba(54, 42, 42, 0.675);
     border: 1px solid black;
     transition: 0.3s;
+    margin-top: 19px;
 }
 
 #search:hover{
@@ -80,4 +81,46 @@ input{
 
 #city_name{
     font-size: 60px;
+}
+
+#cloud-container {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.cloud {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.8);
+    width: 100px;
+    height: 60px;
+    opacity: 0.9;
+}
+.cloud-left {
+    left: 50%;
+    animation: moveLeft 5s linear ;
+}
+  
+  .cloud-right {
+    left: 50%;
+    animation: moveRight 5s linear ;
+}
+
+@keyframes moveLeft {
+0% {
+    transform: translateX(0);
+}
+100% {
+    transform: translateX(-100vw);
+}
+}
+
+@keyframes moveRight {
+0% {
+    transform: translateX(0);
+}
+100% {
+    transform: translateX(100vw);
+}
 }
