@@ -10,10 +10,13 @@ const ChangeBg = () => {
         document.getElementById("left_info").style.color = "rgb(209, 205, 205)";
     }
     else if(document.getElementById("text").innerText == "Partly cloudy"){
-        document.body.style.background = "linear-gradient(90deg, rgba(114,113,129,1) 0%, rgba(99,98,125,1) 46%, rgba(74,74,140,1) 79%, rgba(24,48,152,1) 100%)";
+        document.body.style.background = "linear-gradient(90deg, rgba(130,201,232,1) 0%, rgba(125,149,173,1) 55%, rgba(210,196,176,1) 100%)";
+        //day
     }
     else if(document.getElementById("text").innerText == "Partly Cloudy"){
-        document.body.style.background = "linear-gradient(90deg, rgba(114,113,129,1) 0%, rgba(99,98,125,1) 46%, rgba(74,74,140,1) 79%, rgba(24,48,152,1) 100%)";
+        document.body.style.background = "linear-gradient(100deg, rgb(23, 23, 49) 0%, rgb(43, 11, 90) 50%, rgb(238, 245, 229) 70%, rgb(152, 167, 168) 80%, rgb(152, 167, 168) 100%)";
+        document.getElementById("left_info").style.color = "rgb(209, 205, 205)";
+        //night
     }
     else if(document.getElementById("text").innerText == "Patchy rain nearby"){
         document.body.style.background = "linear-gradient(100deg, rgb(33, 97, 194) 0%, rgb(33, 97, 194) 50%, rgb(178, 235, 22) 60%, rgb(93, 95, 86) 80%, rgb(22, 69, 201) 100%)";
@@ -63,3 +66,9 @@ function search(){
 
     setTimeout()
 }
+var map = L.map('map').setView([60, 50], 3);
+var Temp = L.tileLayer('http://tile.openweathermap.org/map/temp_new/7/{60}/{81}.png?appid=e4d3cd73d50ad843c052abd36ad08c32', {
+    maxZoom: 18,
+    attribution: '&copy; <a href="http://owm.io">VANE</a>',
+    id: 'temp'
+})

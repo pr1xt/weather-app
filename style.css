@@ -45,6 +45,12 @@ input{
     text-align: center;
 }
 
+#map { 
+    height: 180px; 
+    width: 180px;
+}
+
+
 #search{
     padding: 6px;
     border-radius: 7px;

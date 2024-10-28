@@ -6,12 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="images/icon.jpg" type="image/jpg">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
     <title>Weather app</title>
 </head>
     <body>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
     <?php
+        include "keys.php";
         $date = date("Y/m/d - h:i a");
-        $API_KEY = "1bc5dc0c468f4cd181f70404240210";
+        
         error_reporting(0);
 
         
@@ -67,6 +74,10 @@
     ?>
         <div id="main_block">
             <div id="left_info">
+                <div id="map">
+
+
+                </div>
                 <div id="img_info">
                     <?php
                         echo "<img id='weather-icon' src='" . $result["icon"] . "' alt='icon' >";
@@ -100,5 +111,5 @@
             <div id="cloud2"class="cloud cloud-right"><img src="cloud_right.png"></div>
         </div> -->
     </body>
-    <script src="script.js"></script>
+     <script src="script.js"></script>
 </html>
