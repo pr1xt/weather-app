@@ -73,37 +73,45 @@
 
     ?>
         <div id="main_block">
-            <div id="left_info">
-                <div id="map">
-
-
+            <div id="main-info">
+                <div id="left_info">
+                    <div id="img_info">
+                        <?php
+                            echo "<img id='weather-icon' src='" . $result["icon"] . "' alt='icon' >";
+                            echo "<h1 id='text'>" . $result["text"] . "</h1>";
+                            echo "<h1>" . $result["temperature"] . "℃</h1>";
+                            echo "<h2>Feels like: " . $result["feelslike_c"] . "℃</h2>";
+                            echo "<h2>Wind speed: " . $result["wind_mph"] . "mph</h2>";
+                            echo "<h2>Humidity: " . $result["humidity"] . "%</h2>";
+                            echo "<h2>Clouds: " . $result["cloud"] . "%</h2>";
+                            echo "<h2>Pressure: " . $result["pressure_mb"] . "hPa</h2>";
+                        ?>
+                    </div>
+                    <div id="temp_info">
+                        <?php
+                            echo "<h1 id='city_name'>" . $result["name"] . "</h1>";
+                            echo "<h2 id='localtime'>" . $result["localtime"] . "</h2>";
+                        ?>
+                    </div>
                 </div>
-                <div id="img_info">
-                    <?php
-                        echo "<img id='weather-icon' src='" . $result["icon"] . "' alt='icon' >";
-                        echo "<h1 id='text'>" . $result["text"] . "</h1>";
-                        echo "<h1>" . $result["temperature"] . "℃</h1>";
-                        echo "<h2>Feels like: " . $result["feelslike_c"] . "℃</h2>";
-                        echo "<h2>Wind speed: " . $result["wind_mph"] . "mph</h2>";
-                        echo "<h2>Humidity: " . $result["humidity"] . "%</h2>";
-                        echo "<h2>Clouds: " . $result["cloud"] . "%</h2>";
-                        echo "<h2>Pressure: " . $result["pressure_mb"] . "hPa</h2>";
-                    ?>
-                </div>
-                <div id="temp_info">
-                    <?php
-                        echo "<h1 id='city_name'>" . $result["name"] . "</h1>";
-                        echo "<h2 id='localtime'>" . $result["localtime"] . "</h2>";
-                    ?>
+                <div id="right_info"> 
+                    <form name="locForm" action="index.php" onsubmit="return change_prompt()" method="POST">
+                        <!-- ❓🌤️🌧️🌦️⛈️⛅🌥️🌨️🌩️📍🔍🔎 -->
+                        <input id="search" type="text" name="location" placeholder="Search here" required>
+                        <button id="submit" name="look" type="submit" onclick="search()">🔎</button>
+                    </form>
+                    <h2>Ostatnie wyszukiwane:</h2>
                 </div>
             </div>
-            <div id="right_info"> 
-                <form name="locForm" action="index.php" onsubmit="return change_prompt()" method="POST">
-                    <!-- ❓🌤️🌧️🌦️⛈️⛅🌥️🌨️🌩️📍🔍🔎 -->
-                    <input id="search" type="text" name="location" placeholder="Search here" required>
-                    <button id="submit" name="look" type="submit" onclick="search()">🔎</button>
-                </form>
-                <h2>Ostatnie wyszukiwane:</h2>
+            <div id="bottom_info">
+                <div id="forecast">
+
+                </div>
+                <div id="div-map">
+                    <div id="map">
+
+                    </div>          
+                </div>
             </div>
         </div>
         <!-- <div id="cloud-container">

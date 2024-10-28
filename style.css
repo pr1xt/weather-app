@@ -1,5 +1,5 @@
 body{
-    background: whitesmoke;
+    background: rgb(114,113,129)
 }   
 input{
     margin-top: 15px;   
@@ -7,16 +7,22 @@ input{
 
 #main_block{
     width: 90vw;
-    height: 85vh;
+    height: 136vh;
     border: 1px solid black;
     border-radius: 10px;
     display: flex;
+    flex-direction: column;
     position: absolute;
     left: 50%;
-    top:47%;
+    top:70%;
     transform: translate(-50%, -50%);
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     letter-spacing: 2px;
+}
+
+#main-info{
+    display: flex;
+    flex-direction: row;
 }
 
 #left_info{
@@ -33,6 +39,13 @@ input{
     background-color: rgba(54, 44, 44, 0.308);
 }
 
+#bottom_info{
+    width: 90vw;
+    height: 51vh;
+    display: flex;
+    align-self: flex-end;
+}
+
 #img_info{
     width: 60vw;    
     height: 63vh;
@@ -45,11 +58,15 @@ input{
     text-align: center;
 }
 
-#map { 
-    height: 180px; 
-    width: 180px;
+#forecast{
+    width: 60vw;
+    height: 51vh;
 }
 
+#div-map{
+    width: 30vw;
+    height: 51vh;
+}
 
 #search{
     padding: 6px;
@@ -69,6 +86,13 @@ input{
     border: 1px solid black;
     transition: 0.3s;
     margin-top: 19px;
+}
+
+#map {
+    width: 30vw;
+    height: 51vh;
+    position: absolute;
+    right: 0px;
 }
 
 #search:hover{
@@ -108,25 +132,25 @@ input{
     animation: moveLeft 5s linear ;
 }
   
-  .cloud-right {
+.cloud-right {
     left: 50%;
     animation: moveRight 5s linear ;
 }
 
 @keyframes moveLeft {
-0% {
-    transform: translateX(0);
-}
-100% {
-    transform: translateX(-100vw);
-}
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100vw);
+    }
 }
 
 @keyframes moveRight {
-0% {
-    transform: translateX(0);
-}
-100% {
-    transform: translateX(100vw);
-}
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(100vw);
+    }
 }
