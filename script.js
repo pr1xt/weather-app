@@ -1,3 +1,44 @@
+// Initialize the map
+var map = L.map('map').setView([51.505, -0.09], 13);
+
+
+L.tileLayer('http://maps.openweathermap.org/maps/2.0/weather/TA2/{z}/{x}/{y}?appid=e4d3cd73d50ad843c052abd36ad08c32', {
+    attribution: 'gg'
+}).addTo(map);
+
+function create_point(){
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> gg'
+    }).addTo(map);
+
+    async function fetchWeather(lat, lon) {
+        const apiKey = 'e4d3cd73d50ad843c052abd36ad08c32';
+        const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+    
+        const response = await fetch(url);
+        const data = await response.json();
+        return data;
+    }
+    
+    // Function to add a marker with weather info
+    async function addWeatherMarker(lat, lon) {
+        const weatherData = await fetchWeather(lat, lon);
+        const weatherInfo = `
+            <b>${weatherData.name}</b><br>
+            Temperature: ${weatherData.main.temp} °C<br>
+            Weather: ${weatherData.weather[0].description}<br>
+        `;
+    
+        L.marker([lat, lon]).addTo(map)
+            .bindPopup(weatherInfo)
+            .openPopup();
+    }
+    
+    // Add a marker with weather data at the given coordinates
+    addWeatherMarker(51.5, -0.09);
+}
+
+
 const ChangeBg = () => {
     if(document.getElementById("text").innerText == "Sunny"){
         document.body.style.background = "linear-gradient(100deg, rgb(33, 97, 194) 0%, rgb(32, 189, 201) 50%, rgb(178, 235, 22) 100%)";
@@ -58,17 +99,11 @@ function change_prompt() {
     let x = document.forms["locForm"]["location"].value;
     let new_prompt = x.replace(" ", "_").replace("ą", "a").replace("ę", "e").replace("ł", "l").replace("ó", "o").replace("ż", "z").replace("ź", "z");
     document.forms["locForm"]["location"].value = new_prompt; 
-}
+};
 function search(){
     document.getElementById("cloud-container").style.display = "none";
     document.getElementById("cloud1").style.display = "none";
     document.getElementById("cloud2").style.display = "none";
 
     setTimeout()
-}
-var map = L.map('map').setView([60, 50], 3);
-var Temp = L.tileLayer('http://tile.openweathermap.org/map/temp_new/7/{60}/{81}.png?appid=e4d3cd73d50ad843c052abd36ad08c32', {
-    maxZoom: 18,
-    attribution: '&copy; <a href="http://owm.io">VANE</a>',
-    id: 'temp'
-})
+};
