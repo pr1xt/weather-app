@@ -217,6 +217,7 @@ function change_prompt() {
     let new_prompt = x.replace(" ", "_").replace("ą", "a").replace("ę", "e").replace("ł", "l").replace("ń", "n").replace("ó", "o").replace("ż", "z").replace("ź", "z");
     document.forms["locForm"]["location"].value = new_prompt; 
 };
+
 function search(){
     document.getElementById("cloud-container").style.display = "none";
     document.getElementById("cloud1").style.display = "none";
@@ -225,11 +226,21 @@ function search(){
     setTimeout()
 }
 
+
+function add_history() {
+    const history_div = document.createElement('div');
+    history_div.className = 'history-window';
+    const historyParent = document.getElementById('history');
+    historyParent.appendChild(history_div);
+}
+
+document.getElementById("submit").addEventListener("click", add_history);
+
 document.addEventListener('click', (event) => {
     const cursorX = event.clientX;
     const cursorY = event.clientY;
     console.log({ x: cursorX, y: cursorY });
-    if (cursorX == 1865 && cursorY == 11) {
+    if (cursorX == 185 && cursorY == 10) {
         alert("⛅ Congrats! You found an easter egg! 🌤️");
     }
 });

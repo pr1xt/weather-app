@@ -64,10 +64,11 @@
         }
 
         if(isset($_POST["look"])){
-            $location = $_POST["location"];
+            if(isset($_POST['location'])){
+                $location = $_POST["location"];
 
-            $result = get_weather($location);
-
+                $result = get_weather($location);    
+            }
         }else{ 
             $result = get_weather("London");
         }
@@ -122,23 +123,8 @@
                             <button id="submit" name="look" type="submit" onclick="search()">🔎</button>
                         </form>
                         <h2>Search history:</h2>
-                        <div class="history-window">
-
-                        </div>
-                        <div class="history-window">
-
-                        </div>
-                        <div class="history-window">
-
-                        </div>
-                        <div class="history-window">
-
-                        </div>
-                        <div class="history-window">
-
-                        </div>
-                        <div class="history-window">
-
+                        <div id="history">
+                            
                         </div>
                     </div>
                 </div>

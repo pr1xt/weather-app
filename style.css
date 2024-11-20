@@ -165,6 +165,11 @@ input{
     border-right: none;
 }
 
+#history{
+    width: 18vw;
+    height: 67vh;
+}
+
 .history-window{
     width: 18vw;
     height: 8vh;
