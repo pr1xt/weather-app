@@ -1,3 +1,164 @@
+// Initialize the map
+var map = L.map('map').setView([54, 18], 7);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 18,
+    attribution: 'testmap'
+}).addTo(map);
+
+const weatherLayer = L.tileLayer(`https://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=e4d3cd73d50ad843c052abd36ad08c32`, {
+    maxZoom: 18
+});
+
+weatherLayer.addTo(map);
+
+var popup = L.popup();
+
+function create_point(){
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> gg'
+    }).addTo(map);
+
+    async function fetchWeather(lat, lon) {
+        const apiKey = 'e4d3cd73d50ad843c052abd36ad08c32';
+        const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+    
+        const response = await fetch(url);
+        const data = await response.json();
+        return data;
+    }
+    
+    // Function to add a marker with weather info
+    async function addWeatherMarker(lat, lon) {
+        const weatherData = await fetchWeather(lat, lon);
+        const weatherInfo = `
+            <b>${weatherData.name}</b><br>
+            Temperature: ${weatherData.main.temp} °C<br>
+            Weather: ${weatherData.weather[0].description}<br>
+        `;
+    
+        L.marker([lat, lon]).addTo(map)
+            .bindPopup(weatherInfo)
+            .openPopup();
+    }
+    
+    // Add a marker with weather data at the given coordinates
+    addWeatherMarker(54, 18);
+}
+
+
+// Add the weather layer to the map
+
+function onMapClick(e) {
+    popup
+        .setLatLng(e.latlng)
+        .setContent("You clicked the map at " + e.latlng.toString()) //esample from leaflet, will be immediately replaced by weatherpopup...
+        .openOn(map);
+
+
+//getting json function
+$(document).ready(function(){
+  $.ajax({
+    url: "https://api.openweathermap.org/data/2.5/weather?lat=" + e.latlng.lat + '&lon=' + e.latlng.lng + "&appid=e4d3cd73d50ad843c052abd36ad08c32",
+    dataType: 'json',
+    success: function(data) {
+      // storing json data in variables
+      weatherlocation_lon = data.coord.lon; // lon WGS84
+      weatherlocation_lat = data.coord.lat; // lat WGS84
+      weatherstationname = data.name // Name of Weatherstation
+      weatherstationid = data.id // ID of Weatherstation
+      weathertime = data.dt // Time of weatherdata (UTC)
+      temperature = data.main.temp; // Kelvin
+      airpressure = data.main.pressure; // hPa
+      airhumidity = data.main.humidity; // %
+      temperature_min = data.main.temp_min; // Kelvin
+      temperature_max = data.main.temp_max; // Kelvin
+      windspeed = data.wind.speed; // Meter per second
+      winddirection = data.wind.deg; // Wind from direction x degree from north
+      cloudcoverage = data.clouds.all; // Cloudcoverage in %
+      weatherconditionid = data.weather[0].id // ID
+      weatherconditionstring = data.weather[0].main // Weatheartype
+      weatherconditiondescription = data.weather[0].description // Weatherdescription
+      weatherconditionicon = data.weather[0].icon // ID of weathericon
+
+    // Converting Unix UTC Time
+    var utctimecalc = new Date(weathertime * 1000);
+    var months = ['01','02','03','04','05','06','07','08','09','10','11','12'];
+    var year = utctimecalc.getFullYear();
+    var month = months[utctimecalc.getMonth()];
+    var date = utctimecalc.getDate();
+    var hour = utctimecalc.getHours();
+    var min = utctimecalc.getMinutes();
+    var sec = utctimecalc.getSeconds();
+    var time = date + '.' + month + '.' + year + ' ' + hour + ':' + min + ' Uhr';
+
+    // recalculating
+    var weathercondtioniconhtml = "http://openweathermap.org/img/w/" + weatherconditionicon + ".png";
+    var weathertimenormal = time; // reallocate time var....
+    var temperaturecelsius = Math.round((temperature - 273) * 100) / 100;  // Converting Kelvin to Celsius
+    var windspeedknots = Math.round((windspeed * 1.94) * 100) / 100; // Windspeed from m/s in Knots; Round to 2 decimals
+    var windspeedkmh = Math.round((windspeed * 3.6) * 100) / 100; // Windspeed from m/s in km/h; Round to 2 decimals
+    var winddirectionstring = "Im the wind from direction"; // Wind from direction x as text
+    if (winddirection > 348.75 &&  winddirection <= 11.25) {
+        winddirectionstring =  "North";
+    } else if (winddirection > 11.25 &&  winddirection <= 33.75) {
+        winddirectionstring =  "Northnortheast";
+    } else if (winddirection > 33.75 &&  winddirection <= 56.25) {
+        winddirectionstring =  "Northeast";
+    } else if (winddirection > 56.25 &&  winddirection <= 78.75) {
+        winddirectionstring =  "Eastnortheast";
+    } else if (winddirection > 78.75 &&  winddirection <= 101.25) {
+        winddirectionstring =  "East";
+    } else if (winddirection > 101.25 &&  winddirection <= 123.75) {
+        winddirectionstring =  "Eastsoutheast";
+    } else if (winddirection > 123.75 &&  winddirection <= 146.25) {
+        winddirectionstring =  "Southeast";
+    } else if (winddirection > 146.25 &&  winddirection <= 168.75) {
+        winddirectionstring =  "Southsoutheast";
+    } else if (winddirection > 168.75 &&  winddirection <= 191.25) {
+        winddirectionstring =  "South";
+    } else if (winddirection > 191.25 &&  winddirection <= 213.75) {
+        winddirectionstring =  "Southsouthwest";
+    } else if (winddirection > 213.75 &&  winddirection <= 236.25) {
+        winddirectionstring =  "Southwest";
+    } else if (winddirection > 236.25 &&  winddirection <= 258.75) {
+        winddirectionstring =  "Westsouthwest";
+    } else if (winddirection > 258.75 &&  winddirection <= 281.25) {
+        winddirectionstring =  "West";
+    } else if (winddirection > 281.25 &&  winddirection <= 303.75) {
+        winddirectionstring =  "Westnorthwest";
+    } else if (winddirection > 303.75 &&  winddirection <= 326.25) {
+        winddirectionstring =  "Northwest";
+    } else if (winddirection > 326.25 &&  winddirection <= 348.75) {
+        winddirectionstring =  "Northnorthwest";
+    } else {
+        winddirectionstring =  " - currently no winddata available - ";
+    };
+
+//Popup with content
+    var fontsizesmall = 1;
+    popup.setContent("Weatherdata:<br>" + "<img src=" + weathercondtioniconhtml + ">" +  weatherconditiondescription + "<br>Temperature: " + temperaturecelsius + "°C<br>Airpressure: " 
+        + airpressure + " hPa<br>Humidityt: " + airhumidity + "%" + "<br>Cloudcoverage: " + cloudcoverage + "%<br><br>Windspeed: " + windspeedkmh 
+        + " km/h<br>Wind from direction: " + winddirectionstring + " (" + winddirection + "°)" + "<br><br><font size=" + fontsizesmall 
+        + ">");           
+
+
+    },
+    error: function() {
+      alert("error receiving wind data from openweathermap");
+    }
+  });        
+});
+//getting json function ends here
+
+//popupfunction ends here
+}
+
+//popup
+map.on('click', onMapClick);
+
+
+
 const ChangeBg = () => {
     if(document.getElementById("text").innerText == "Sunny"){
         document.body.style.background = "linear-gradient(90deg, rgba(18,65,139,1) 0%, rgba(71,102,140,1) 64%, rgba(146,162,50,1) 82%, rgba(197,237,26,1) 100%)";
@@ -8,6 +169,7 @@ const ChangeBg = () => {
     else if(document.getElementById("text").innerText == "Clear"){
         document.body.style.background = "linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(28,28,117,1) 62%, rgba(90,90,144,1) 77%, rgba(255,255,255,1) 100%)";
         document.getElementById("left_info").style.color = "rgb(209, 205, 205)";
+        document.getElementById("forecast").style.backgroundColor = "rgba(102, 96, 121, 0.6)";
     }
     else if(document.getElementById("text").innerText == "Partly cloudy"){
         document.body.style.background = "linear-gradient(90deg, rgba(114,113,129,1) 0%, rgba(99,98,125,1) 46%, rgba(74,74,140,1) 79%, rgba(24,48,152,1) 100%)";
@@ -54,7 +216,7 @@ function change_prompt() {
     let x = document.forms["locForm"]["location"].value;
     let new_prompt = x.replace(" ", "_").replace("ą", "a").replace("ę", "e").replace("ł", "l").replace("ń", "n").replace("ó", "o").replace("ż", "z").replace("ź", "z");
     document.forms["locForm"]["location"].value = new_prompt; 
-}
+};
 function search(){
     document.getElementById("cloud-container").style.display = "none";
     document.getElementById("cloud1").style.display = "none";
@@ -63,9 +225,11 @@ function search(){
     setTimeout()
 }
 
-var map = L.map('map').setView([60, 50], 3);
-var Temp = L.tileLayer('http://tile.openweathermap.org/map/temp_new/7/{60}/{81}.png?appid=e4d3cd73d50ad843c052abd36ad08c32', {
-    maxZoom: 18,
-    attribution: '&copy; <a href="http://owm.io">VANE</a>',
-    id: 'temp'
-})
+document.addEventListener('click', (event) => {
+    const cursorX = event.clientX;
+    const cursorY = event.clientY;
+    console.log({ x: cursorX, y: cursorY });
+    if (cursorX == 1865 && cursorY == 11) {
+        alert("⛅ Congrats! You found an easter egg! 🌤️");
+    }
+});

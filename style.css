@@ -1,5 +1,7 @@
 body{
-    background: rgb(114,113,129)
+    background: rgb(114,113,129);
+    display: flex;
+    overflow-x: hidden;
 }   
 input{
     margin-top: 15px;   
@@ -9,12 +11,10 @@ input{
     width: 90vw;
     height: 136vh;
     border: 1px solid black;
+    border-bottom: 2px solid black;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    position: absolute;
-    left: 50%;
-    top:70%;
     transform: translate(-50%, -50%);
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     letter-spacing: 2px;
@@ -33,10 +33,14 @@ input{
 }
 
 #right_info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 30vw;
     height: 85vh;
     text-align: center;
     background-color: rgba(54, 44, 44, 0.308);
+    border-top-right-radius: 10px
 }
 
 #bottom_info{
@@ -56,22 +60,29 @@ input{
     width: 60vw;
     height: 22vh;
     text-align: center;
+    position: absolute;
 }
 
 #forecast{
-    width: 60vw;
-    height: 51vh;
+    display: flex;
+    width: 59.4vw;
+    height: 21vh;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: rgba(154, 159, 173, 0.616);
+    margin: auto;
 }
 
 #div-map{
-    width: 30vw;
+    width: 90vw;
     height: 51vh;
 }
 
 #search{
     padding: 6px;
     border-radius: 7px;
-    width: 11vw;
+    width: 11.3vw;
+    height: 2vh;
     background-color: rgba(54, 42, 42, 0.675);
     border: 1px solid black;
     transition: 0.3s;   
@@ -80,8 +91,8 @@ input{
 #submit{
     padding: 5px;
     border-radius: 7px;
-    width: 32px;
-    height: 30px;
+    width: 2vw;
+    height: 3.5vh;
     background-color: rgba(54, 42, 42, 0.675);
     border: 1px solid black;
     transition: 0.3s;
@@ -89,10 +100,13 @@ input{
 }
 
 #map {
-    width: 30vw;
+    width: 90vw;
     height: 51vh;
     position: absolute;
     right: 0px;
+    border-top: 1px solid black;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 
 #search:hover{
@@ -110,7 +124,7 @@ input{
 }
 
 #city_name{
-    font-size: 60px;
+    font-size: 7vh;
 }
 
 #cloud-container {
@@ -120,6 +134,46 @@ input{
     overflow: hidden;
 }
 
+#space{
+    width: 90vw;
+    height: 73vh;
+    position: absolute;
+    top: 71%;
+    left: 50%;
+    bottom: 20%;
+}
+
+.info {
+    font-size: 2.3vh;
+}
+
+.box {
+    display: flex;
+    width: 11.9vw;
+    height: 21vh;
+    border-right: 1px solid black;
+}
+
+#start-box {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+#end-box {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-right: none;
+}
+
+.history-window{
+    width: 18vw;
+    height: 8vh;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-bottom: 35px;
+    background-color: rgba(196, 163, 163, 0.315);
+}
+
 .cloud {
     position: absolute;
     background: rgba(255, 255, 255, 0.8);
@@ -127,6 +181,7 @@ input{
     height: 60px;
     opacity: 0.9;
 }
+
 .cloud-left {
     left: 50%;
     animation: moveLeft 5s linear ;
