@@ -99,6 +99,20 @@ input{
     margin-top: 19px;
 }
 
+#sub_loc{
+    padding: 0.5vh;
+    border-radius: 7px;
+    width: 8.7vw;
+    height: 3vh;
+    background-color: rgba(54, 42, 42, 0.675);
+    border: 1px solid black;
+    transition: 0.3s;
+    margin-top: 19px;
+    color: rgb(165, 156, 141);
+    font-size: 1.5vh;
+    letter-spacing: 1px;
+}
+
 #map {
     width: 90vw;
     height: 51vh;
@@ -115,6 +129,11 @@ input{
 }
 
 #submit:hover{
+    background-color: rgba(78, 63, 63, 0.675);
+    border: 1px solid rgb(146, 122, 122);
+}
+
+#sub_loc:hover{
     background-color: rgba(78, 63, 63, 0.675);
     border: 1px solid rgb(146, 122, 122);
 }
@@ -175,26 +194,24 @@ input{
     height: 8vh;
     border: 1px solid black;
     border-radius: 10px;
-    margin-bottom: 35px;
+    margin-bottom: 31px;
     background-color: rgba(196, 163, 163, 0.315);
 }
 
 .cloud {
-    position: absolute;
-    background: rgba(255, 255, 255, 0.8);
-    width: 100px;
-    height: 60px;
-    opacity: 0.9;
+    position: fixed;
+    height:100vh;
+    z-index: 999;
 }
 
 .cloud-left {
-    left: 50%;
-    animation: moveLeft 5s linear ;
+    right: 40%;
+    animation: moveLeft 2.7s ease-in forwards ;
 }
   
 .cloud-right {
-    left: 50%;
-    animation: moveRight 5s linear ;
+    left: 40%;
+    animation: moveRight 2.7s ease-in forwards;
 }
 
 @keyframes moveLeft {

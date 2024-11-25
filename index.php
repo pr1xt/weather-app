@@ -12,19 +12,22 @@
     <title>Weather app</title>
 </head>
     <body>
-        
+
+
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
      crossorigin=""></script>
-
+        
     <?php
         include "keys.php";
         $date = date("Y/m/d - h:i a");
         
         error_reporting(0);
 
-        
+        $conn = @mysqli_connect('localhost', 'root', '', 'baza_pogoda')
+        or die('Brak polaczenia z serwerem MySQL<br/>Blad: '.my_sqli_error());
+
         function get_weather($loc): array{
             global $API_KEY; 
             $url = "http://api.weatherapi.com/v1/current.json?key=$API_KEY&q=$loc&aqi=no";
@@ -62,6 +65,43 @@
                 "localtime" => $localtime
             ];
         }
+        /*function get_location($loc): array{
+            global $API_KEY; 
+            $url_over = "api.openweathermap.org/data/2.5/forecast?lat=&lon=&appid=$API_KEY";
+            $ch = curl_init();
+
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_URL, $url);
+
+            $exec_result = curl_exec($ch);    // get data from API page
+
+            $data = json_decode($exec_result, true);
+
+            $name = $data["location"]["name"];
+            $temperature = $data["current"]["temp_c"];
+            $wind_mph = $data["current"]["wind_mph"];
+            $humidity = $data["current"]["humidity"];
+            $feelslike_c = $data["current"]["feelslike_c"];
+            $cloud = $data["current"]["cloud"];
+            $pressure_mb = $data["current"]["pressure_mb"];
+            $text = $data["current"]["condition"]["text"];
+            $icon = $data["current"]["condition"]["icon"];
+            $localtime = $data["location"]["localtime"];
+
+            curl_close($ch);
+            return [
+                "name" => $name,
+                "temperature" => $temperature, 
+                "wind_mph" => $wind_mph,
+                "feelslike_c" => $feelslike_c,
+                "icon" => $icon,
+                "text" => $text,
+                "humidity" => $humidity,
+                "pressure_mb" => $pressure_mb,
+                "cloud" => $cloud,
+                "localtime" => $localtime
+            ];
+        }*/
 
         if(isset($_POST["look"])){
             if(isset($_POST['location'])){
@@ -74,6 +114,7 @@
         }
 
         //to get $result u should call get_weather($loc) where $loc is string of location in ENGLISH
+
 
     ?>
         <div id="space">
@@ -117,6 +158,7 @@
                         </div>
                     </div>
                     <div id="right_info">
+                    <button id="sub_loc" name="sub_loc" type="submit" onclick="getLocation()">Get Your   Location</button>
                         <form name="locForm" action="index.php" onsubmit="return change_prompt()" method="POST">
                             <!-- ❓🌤️🌧️🌦️⛈️⛅🌥️🌨️🌩️📍🔍🔎 -->
                             <input id="search" type="text" name="location" placeholder="Search here" required>
@@ -142,5 +184,12 @@
             <div id="cloud2"class="cloud cloud-right"><img src="cloud_right.png"></div>
         </div> -->
     </body>
-    <script src="script.js?<?php echo time(); ?>"></script>
+    <?php
+         mysqli_close($conn);
+    ?>
+    
+    <img id="cloud1" class="cloud cloud-left"src="https://raw.githubusercontent.com/pr1xt/weather-app/refs/heads/main/cloud_left.png">
+    <img id="cloud2" class="cloud cloud-right"src="https://raw.githubusercontent.com/pr1xt/weather-app/refs/heads/main/cloud_right.png">
+    
+    <script src="script.js?<?php echo time(); ?>"></script>  
 </html>

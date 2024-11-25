@@ -9,11 +9,9 @@
     <title>Weather app</title>
 </head>
 <body>
+    <img id="cloud1" class="cloud cloud-left"src="https://raw.githubusercontent.com/pr1xt/weather-app/refs/heads/main/cloud_left.png">
+    <img id="cloud2" class="cloud cloud-right"src="https://raw.githubusercontent.com/pr1xt/weather-app/refs/heads/main/cloud_right.png">
 
-<div id="cloud-container">
-            <div id="cloud1" class="cloud cloud-left"><img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ffreepngimg.com%2Fthumb%2Fcloud%2F4-cloud-png-image.png&f=1&nofb=1&ipt=a0e8c82c66721d7f0389f402bd3a5625ae2587cb08a5dcc1dd938c1cc4693797&ipo=images"></div>
-            <div id="cloud2"class="cloud cloud-right"><img src="images\cloud_right.png"></div>
-        </div>
 
 </body>
 <script src="script.js"></script>

@@ -161,7 +161,7 @@ map.on('click', onMapClick);
 
 const ChangeBg = () => {
     if(document.getElementById("text").innerText == "Sunny"){
-        document.body.style.background = "linear-gradient(90deg, rgba(18,65,139,1) 0%, rgba(71,102,140,1) 64%, rgba(146,162,50,1) 82%, rgba(197,237,26,1) 100%)";
+        document.body.style.background = "linear-gradient(90deg, rgba(157,157,228,1) 0%, rgba(71,102,140,1) 64%, rgba(146,162,50,1) 82%, rgba(197,237,26,1) 100%)";
     }
     else if(document.getElementById("text").innerText == "Cloudy"){
         document.body.style.background = "linear-gradient(100deg, rgb(66, 126, 216) 0%, rgb(152, 167, 168) 70%, rgb(93, 95, 86) 100%)";
@@ -200,7 +200,7 @@ const ChangeBg = () => {
         document.body.style.background = "linear-gradient(185deg, rgba(233,253,255,1) 0%, rgba(218,237,255,1) 55%, rgba(253,242,225,1) 100%)";
     }
     else if(document.getElementById("text").innerText == "Moderate snow"){
-        document.body.style.background = "linear-gradient(185deg, rgba(166,188,190,1) 0%, rgba(177,185,192,1) 55%, rgba(253,242,225,1) 100%)";
+        document.body.style.background = "linear-gradient(90deg, rgba(166,188,190,1) 0%, rgba(177,185,192,1) 55%, rgba(253,242,225,1) 100%)";
     }
     else if(document.getElementById("text").innerText == "Heavy snow"){
         document.body.style.background = " linear-gradient(158deg, rgba(144,144,144,1) 0%, rgba(177,185,192,1) 55%, rgba(158,150,139,1) 100%)";
@@ -244,3 +244,37 @@ document.addEventListener('click', (event) => {
         alert("⛅ Congrats! You found an easter egg! 🌤️");
     }
 });
+
+const div_loc = document.getElementById("end-box");
+
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else {
+    div_loc.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPosition(position) {
+    var lat =  position.coords.latitude;
+    var lon = position.coords.longitude;
+    return lat, lon;
+}
+
+function showError(error) {
+    switch(error.code) {
+      case error.PERMISSION_DENIED:
+        alert("User denied the request for Geolocation.");
+        break;
+      case error.POSITION_UNAVAILABLE:
+        alert("Location information is unavailable.");
+        break;
+      case error.TIMEOUT:
+        alert("The request to get user location timed out.");
+        break;
+      case error.UNKNOWN_ERROR:
+        alert("An unknown error occurred.");
+        break;
+    }
+}
