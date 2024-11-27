@@ -158,7 +158,6 @@ $(document).ready(function(){
 map.on('click', onMapClick);
 
 
-
 const ChangeBg = () => {
     if(document.getElementById("text").innerText == "Sunny"){
         document.body.style.background = "linear-gradient(90deg, rgba(157,157,228,1) 0%, rgba(71,102,140,1) 64%, rgba(146,162,50,1) 82%, rgba(197,237,26,1) 100%)";
@@ -226,7 +225,6 @@ function search(){
     setTimeout()
 }
 
-
 function add_history() {
     const history_div = document.createElement('div');
     history_div.className = 'history-window';
@@ -247,11 +245,11 @@ document.addEventListener('click', (event) => {
 
 const div_loc = document.getElementById("end-box");
 
-
 function getLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition);
-  } else {
+  } 
+  else {
     div_loc.innerHTML = "Geolocation is not supported by this browser.";
   }
 }
@@ -259,7 +257,15 @@ function getLocation() {
 function showPosition(position) {
     var lat =  position.coords.latitude;
     var lon = position.coords.longitude;
-    return lat, lon;
+
+    fetch('index.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'json',
+        },
+        body: JSON.stringify({ lat, lon })
+    })
+    
 }
 
 function showError(error) {
@@ -277,4 +283,4 @@ function showError(error) {
         alert("An unknown error occurred.");
         break;
     }
-}
+}   

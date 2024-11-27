@@ -65,43 +65,6 @@
                 "localtime" => $localtime
             ];
         }
-        /*function get_location($loc): array{
-            global $API_KEY; 
-            $url_over = "api.openweathermap.org/data/2.5/forecast?lat=&lon=&appid=$API_KEY";
-            $ch = curl_init();
-
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($ch, CURLOPT_URL, $url);
-
-            $exec_result = curl_exec($ch);    // get data from API page
-
-            $data = json_decode($exec_result, true);
-
-            $name = $data["location"]["name"];
-            $temperature = $data["current"]["temp_c"];
-            $wind_mph = $data["current"]["wind_mph"];
-            $humidity = $data["current"]["humidity"];
-            $feelslike_c = $data["current"]["feelslike_c"];
-            $cloud = $data["current"]["cloud"];
-            $pressure_mb = $data["current"]["pressure_mb"];
-            $text = $data["current"]["condition"]["text"];
-            $icon = $data["current"]["condition"]["icon"];
-            $localtime = $data["location"]["localtime"];
-
-            curl_close($ch);
-            return [
-                "name" => $name,
-                "temperature" => $temperature, 
-                "wind_mph" => $wind_mph,
-                "feelslike_c" => $feelslike_c,
-                "icon" => $icon,
-                "text" => $text,
-                "humidity" => $humidity,
-                "pressure_mb" => $pressure_mb,
-                "cloud" => $cloud,
-                "localtime" => $localtime
-            ];
-        }*/
 
         if(isset($_POST["look"])){
             if(isset($_POST['location'])){
@@ -115,6 +78,20 @@
 
         //to get $result u should call get_weather($loc) where $loc is string of location in ENGLISH
 
+
+        
+        $weather_data = json_decode(file_get_contents('php://input'), true);
+        show_ur_weather($weather_data);
+        
+
+        function show_ur_weather($data) {
+            // Assuming $data['lat'] and $data['lon'] exist
+            if (isset($data['lat']) && isset($data['lon'])) {
+                echo json_encode(array('message' => 'Data received and processed', 'lat' => $data['lat'], 'lon' => $data['lon']));
+            } else {
+                echo json_encode(array('error' => 'Latitude and longitude not found'));
+            }
+        }
 
     ?>
         <div id="space">
@@ -157,6 +134,7 @@
                             </div>
                         </div>
                     </div>
+                    
                     <div id="right_info">
                     <button id="sub_loc" name="sub_loc" type="submit" onclick="getLocation()">Get Your   Location</button>
                         <form name="locForm" action="index.php" onsubmit="return change_prompt()" method="POST">
@@ -179,17 +157,14 @@
                 </div>
             </div>
         </div>
-        <!-- <div id="cloud-container">
-            <div id="cloud1" class="cloud cloud-left"><img src="cloud_left.png"></div>
-            <div id="cloud2"class="cloud cloud-right"><img src="cloud_right.png"></div>
-        </div> -->
+        <img id="cloud1" class="cloud cloud-left"src="https://raw.githubusercontent.com/pr1xt/weather-app/refs/heads/main/cloud_left.png">
+        <img id="cloud2" class="cloud cloud-right"src="https://raw.githubusercontent.com/pr1xt/weather-app/refs/heads/main/cloud_right.png">
+    
     </body>
     <?php
          mysqli_close($conn);
     ?>
     
-    <img id="cloud1" class="cloud cloud-left"src="https://raw.githubusercontent.com/pr1xt/weather-app/refs/heads/main/cloud_left.png">
-    <img id="cloud2" class="cloud cloud-right"src="https://raw.githubusercontent.com/pr1xt/weather-app/refs/heads/main/cloud_right.png">
     
     <script src="script.js?<?php echo time(); ?>"></script>  
 </html>
