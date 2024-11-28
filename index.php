@@ -12,8 +12,6 @@
     <title>Weather app</title>
 </head>
     <body>
-
-
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
@@ -21,24 +19,26 @@
         
     <?php
         include "keys.php";
-        $date = date("Y/m/d - h:i a");
+        $date = date(format: "Y/m/d - h:i a");
         
-        error_reporting(0);
+        error_reporting(error_level: 0);
 
-        $conn = @mysqli_connect('localhost', 'root', '', 'baza_pogoda')
-        or die('Brak polaczenia z serwerem MySQL<br/>Blad: '.my_sqli_error());
-
+        function conn_db(): bool|mysqli{
+            $conn = @mysqli_connect(hostname: 'localhost', username: 'root', password: '', database: 'baza_pogoda');
+            mysqli_close(mysql: $conn);
+            return $conn;
+        }
         function get_weather($loc): array{
             global $API_KEY; 
             $url = "http://api.weatherapi.com/v1/current.json?key=$API_KEY&q=$loc&aqi=no";
             $ch = curl_init();
 
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt(handle: $ch, option: CURLOPT_RETURNTRANSFER, value: 1);
+            curl_setopt(handle: $ch, option: CURLOPT_URL, value: $url);
 
-            $exec_result = curl_exec($ch);    // get data from API page
+            $exec_result = curl_exec(handle: $ch);    // get data from API page
 
-            $data = json_decode($exec_result, true);
+            $data = json_decode(json: $exec_result, associative: true);
 
             $name = $data["location"]["name"];
             $temperature = $data["current"]["temp_c"];
@@ -51,7 +51,7 @@
             $icon = $data["current"]["condition"]["icon"];
             $localtime = $data["location"]["localtime"];
 
-            curl_close($ch);
+            curl_close(handle: $ch);
             return [
                 "name" => $name,
                 "temperature" => $temperature, 
@@ -70,26 +70,23 @@
             if(isset($_POST['location'])){
                 $location = $_POST["location"];
 
-                $result = get_weather($location);    
+                $result = get_weather(loc: $location);    
             }
         }else{ 
-            $result = get_weather("London");
+            $result = get_weather(loc: "London");
         }
 
         //to get $result u should call get_weather($loc) where $loc is string of location in ENGLISH
-
-
+ 
+        // $weather_data = json_decode(json: file_get_contents(filename: 'php://input'), associative: true);
+        // show_ur_weather(data: $weather_data);
         
-        $weather_data = json_decode(file_get_contents('php://input'), true);
-        show_ur_weather($weather_data);
-        
-
-        function show_ur_weather($data) {
+        function show_ur_weather($data): void {
             // Assuming $data['lat'] and $data['lon'] exist
             if (isset($data['lat']) && isset($data['lon'])) {
-                echo json_encode(array('message' => 'Data received and processed', 'lat' => $data['lat'], 'lon' => $data['lon']));
+                echo json_encode(value: array('message' => 'Data received and processed', 'lat' => $data['lat'], 'lon' => $data['lon']));
             } else {
-                echo json_encode(array('error' => 'Latitude and longitude not found'));
+                echo json_encode(value: array('error' => 'Latitude and longitude not found'));
             }
         }
 
@@ -136,7 +133,7 @@
                     </div>
                     
                     <div id="right_info">
-                    <button id="sub_loc" name="sub_loc" type="submit" onclick="getLocation()">Get Your   Location</button>
+                    <button id="sub_loc" name="sub_loc" type="submit" onclick="getLocation()">Get Your Location</button>
                         <form name="locForm" action="index.php" onsubmit="return change_prompt()" method="POST">
                             <!-- ❓🌤️🌧️🌦️⛈️⛅🌥️🌨️🌩️📍🔍🔎 -->
                             <input id="search" type="text" name="location" placeholder="Search here" required>
@@ -161,10 +158,6 @@
         <img id="cloud2" class="cloud cloud-right"src="https://raw.githubusercontent.com/pr1xt/weather-app/refs/heads/main/cloud_right.png">
     
     </body>
-    <?php
-         mysqli_close($conn);
-    ?>
-    
-    
+       
     <script src="script.js?<?php echo time(); ?>"></script>  
 </html>
