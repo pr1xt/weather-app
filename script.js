@@ -243,8 +243,6 @@ document.addEventListener('click', (event) => {
     }
 });
 
-const div_loc = document.getElementById("end-box");
-
 function getLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition);
@@ -255,7 +253,7 @@ function getLocation() {
 }
 
 function showPosition(position) {
-    var lat =  position.coords.latitude;
+    var lat = position.coords.latitude;
     var lon = position.coords.longitude;
 
     fetch('index.php', {
@@ -283,4 +281,32 @@ function showError(error) {
         alert("An unknown error occurred.");
         break;
     }
-}   
+}
+
+// rescaling
+$('button').click(function() {
+    $('.box').each(function(){
+        rescale($(this));
+    })
+});
+
+function rescale(elem) {
+
+    var height = parseInt(elem.css('height'));
+    var width = parseInt(elem.css('width'));
+    var scalex = parseFloat(elem.attr('scalex'));
+    var scaley = parseFloat(elem.attr('scaley'));
+
+    if (!elem.hasClass('rescaled')){
+        var ratioX = scalex;
+        var ratioY = scaley;
+    }else{          
+        var ratioX = 0.9;
+        var ratioY = 1.2;
+    }
+
+    elem.toggleClass('rescaled');
+    elem.css('-webkit-transform', 'scale('+ratioX +', '+ratioY+')');        
+    elem.parent().css('width', parseInt(width*ratioX) + 'px');
+    elem.parent().css('height', parseInt(height*ratioY) + 'px');
+}

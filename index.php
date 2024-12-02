@@ -28,6 +28,29 @@
             mysqli_close(mysql: $conn);
             return $conn;
         }
+        function get_forecast($lat,$lon){
+            global $MAP_KEY; 
+            $url = "api.openweathermap.org/data/2.5/forecast?lat={$lat}&lon={$lon}&appid=$MAP_KEY&units=metric ";
+            $ch = curl_init();
+
+            curl_setopt(handle: $ch, option: CURLOPT_RETURNTRANSFER, value: 1);
+            curl_setopt(handle: $ch, option: CURLOPT_URL, value: $url);
+
+            $exec_result = curl_exec(handle: $ch);    // get data from API page
+
+            $data = json_decode(json: $exec_result, associative: true);
+            $day0 = $data["list"][0]["main"]["temp"]."℃ ".$data["list"][0]["weather"][0]["main"];
+            $day1 = $data["list"][8]["main"]["temp"]."℃ ".$data["list"][8]["weather"][0]["main"];
+            $day2 = $data["list"][16]["main"]["temp"]."℃ ".$data["list"][16]["weather"][0]["main"];
+            $day3 = $data["list"][24]["main"]["temp"]."℃ ".$data["list"][24]["weather"][0]["main"];
+            $day4 = $data["list"][32]["main"]["temp"]."℃ ".$data["list"][32]["weather"][0]["main"];
+            $weather_list = [$day0,$day1,$day2,$day3,$day4];
+            
+            return $weather_list;
+
+
+
+        }
         function get_weather($loc): array{
             global $API_KEY; 
             $url = "http://api.weatherapi.com/v1/current.json?key=$API_KEY&q=$loc&aqi=no";
@@ -50,19 +73,28 @@
             $text = $data["current"]["condition"]["text"];
             $icon = $data["current"]["condition"]["icon"];
             $localtime = $data["location"]["localtime"];
+            
+            $lat = $data["location"]["lat"];
+            $lon = $data["location"]["lon"];
 
             curl_close(handle: $ch);
+            
+            $weather_list = get_forecast($lat,$lon);
+
             return [
                 "name" => $name,
                 "temperature" => $temperature, 
                 "wind_mph" => $wind_mph,
                 "feelslike_c" => $feelslike_c,
                 "icon" => $icon,
-                "text" => $text,
+                "text" => $text,    
                 "humidity" => $humidity,
                 "pressure_mb" => $pressure_mb,
                 "cloud" => $cloud,
-                "localtime" => $localtime
+                "localtime" => $localtime,
+                "lat" => $lat,
+                "lon" => $lon,
+                "forecast" => $weather_list
             ];
         }
 
@@ -92,14 +124,14 @@
 
     ?>
         <div id="space">
-            <div id="main_block">
+            <div id="main_block" scalex='0.9' scaley='1.2'>
                 <div id="main-info">
                     <div id="left_info">
                         <div id="img_info">
                             <?php
                                 echo "<img id='weather-icon' src='" . $result["icon"] . "' alt='icon' >";
-                                echo "<h1 id='text'>" . $result["text"] . "</h1>";
-                                echo "<h1>" . $result["temperature"] . "℃</h1>";
+                                echo "<h1 id='text'>" . $result["text"] . "</h1>"; //not scaling?
+                                echo "<h1>" . $result["temperature"] . "℃</h1>"; //not scaling?
                                 echo "<h2 class='info'>Feels like: " . $result["feelslike_c"] . "℃</h2>";
                                 echo "<h2 class='info'>Wind speed: " . $result["wind_mph"] . "mph</h2>";
                                 echo "<h2 class='info'>Humidity: " . $result["humidity"] . "%</h2>";
@@ -108,26 +140,50 @@
                             ?>
                         </div>
                         <div id="temp_info">
+                            <div id="city_name">
                             <?php
                                 echo "<h1 id='city_name'>" . $result["name"] . "</h1>";
-                                echo "<h2 id='localtime'>" . $result["localtime"] . "</h2>";
                             ?>
+                            </div>
+                            <div id="loc_time">
+                            <?php
+                                echo "<h2 id='localtime'>" . $result["localtime"] . "</h2>"; //not scaling?
+                            ?>
+                            </div>
                         </div>
+                        <?php
+                            $today = date('w');
+                            $daysAhead = array();
+                            for ($i = 1; $i <= 7; $i++) {
+                                $day = date('l', strtotime('+' . $i . ' days', strtotime(date('Y-m-d'))));
+                                $daysAhead[] = $day;
+                            }
+                        ?>
                         <div id="forecast">
                             <div class="box" id="start-box">
-                                
+                                <?php echo "<h3>" . $daysAhead[0] . "</h3>"; 
+                                    echo "<h3>" . $result['forecast'][0] . "</h3>";
+                                ?>
                             </div>
                             <div class="box">
-
+                                <?php echo "<h3>" . $daysAhead[1] . "</h3>";
+                                    echo "<h3>" . $result['forecast'][1] . "</h3>";
+                                ?>
                             </div>
                             <div class="box">
-
+                                <?php echo "<h3>" . $daysAhead[2] . "</h3>"; 
+                                    echo "<h3>" . $result['forecast'][2] . "</h3>";
+                                ?>
                             </div>
                             <div class="box">
-
+                                <?php echo "<h3>" . $daysAhead[3] . "</h3>"; 
+                                    echo "<h3>" . $result['forecast'][3] . "</h3>";
+                                ?>
                             </div>
                             <div class="box" id="end-box">
-
+                                <?php echo "<h3>" . $daysAhead[4] . "</h3>"; 
+                                    echo "<h3>" . $result['forecast'][4] . "</h3>";
+                                ?>
                             </div>
                         </div>
                     </div>
@@ -139,9 +195,9 @@
                             <input id="search" type="text" name="location" placeholder="Search here" required>
                             <button id="submit" name="look" type="submit" onclick="search()">🔎</button>
                         </form>
-                        <h2>Search history:</h2>
+                        <h2>Search history:</h2> <!-- not scaling? -->
                         <div id="history">
-                            
+                         
                         </div>
                     </div>
                 </div>
@@ -154,8 +210,8 @@
                 </div>
             </div>
         </div>
-        <img id="cloud1" class="cloud cloud-left"src="https://raw.githubusercontent.com/pr1xt/weather-app/refs/heads/main/cloud_left.png">
-        <img id="cloud2" class="cloud cloud-right"src="https://raw.githubusercontent.com/pr1xt/weather-app/refs/heads/main/cloud_right.png">
+        <img id="cloud1" class="cloud cloud-left" src="https://raw.githubusercontent.com/pr1xt/weather-app/refs/heads/main/cloud_left.png">
+        <img id="cloud2" class="cloud cloud-right" src="https://raw.githubusercontent.com/pr1xt/weather-app/refs/heads/main/cloud_right.png">
     
     </body>
        

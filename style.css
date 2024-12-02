@@ -79,6 +79,8 @@ input{
 }
 
 #search{
+    position: sticky;
+    top: 0;
     padding: 6px;
     border-radius: 7px;
     width: 11.3vw;
@@ -89,6 +91,8 @@ input{
 }
 
 #submit{
+    position: sticky;
+    top: 0;
     padding: 5px;
     border-radius: 7px;
     width: 2vw;
@@ -170,7 +174,9 @@ input{
     display: flex;
     width: 11.9vw;
     height: 21vh;
+    padding: 2px;
     border-right: 1px solid black;
+    justify-content: center;
 }
 
 #start-box {
