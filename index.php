@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="images/icon.jpg" type="image/jpg">
+    <link rel="icon" href="images/icon.png" type="image/png">
     <link rel="stylesheet" href="style.css"<?php echo time();?>>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
@@ -40,11 +40,16 @@
 
             $data = json_decode(json: $exec_result, associative: true);
             $day0 = $data["list"][0]["main"]["temp"]."℃ ".$data["list"][0]["weather"][0]["main"];
+            $d0_icon = $data["list"][0]["weather"][0]["icon"];
             $day1 = $data["list"][8]["main"]["temp"]."℃ ".$data["list"][8]["weather"][0]["main"];
+            $d1_icon = $data["list"][8]["weather"][0]["icon"];
             $day2 = $data["list"][16]["main"]["temp"]."℃ ".$data["list"][16]["weather"][0]["main"];
+            $d2_icon = $data["list"][16]["weather"][0]["icon"];
             $day3 = $data["list"][24]["main"]["temp"]."℃ ".$data["list"][24]["weather"][0]["main"];
+            $d3_icon = $data["list"][24]["weather"][0]["icon"];
             $day4 = $data["list"][32]["main"]["temp"]."℃ ".$data["list"][32]["weather"][0]["main"];
-            $weather_list = [$day0,$day1,$day2,$day3,$day4];
+            $d4_icon = $data["list"][32]["weather"][0]["icon"];
+            $weather_list = [$day0,$d0_icon,$day1,$d1_icon,$day2,$d2_icon,$day3,$d3_icon,$day4,$d4_icon];
             
             return $weather_list;
 
@@ -86,7 +91,7 @@
                 "temperature" => $temperature, 
                 "wind_mph" => $wind_mph,
                 "feelslike_c" => $feelslike_c,
-                "icon" => $icon,
+                "icon" => $icon,        
                 "text" => $text,    
                 "humidity" => $humidity,
                 "pressure_mb" => $pressure_mb,
@@ -130,7 +135,7 @@
                         <div id="img_info">
                             <?php
                                 echo "<img id='weather-icon' src='" . $result["icon"] . "' alt='icon' >";
-                                echo "<h1 id='text'>" . $result["text"] . "</h1>"; //not scaling?
+                                echo "<h1 id='text'>" . $result["text"] . "</h1>"; //not scaling? NO BITCHES???
                                 echo "<h1>" . $result["temperature"] . "℃</h1>"; //not scaling?
                                 echo "<h2 class='info'>Feels like: " . $result["feelslike_c"] . "℃</h2>";
                                 echo "<h2 class='info'>Wind speed: " . $result["wind_mph"] . "mph</h2>";
@@ -161,28 +166,38 @@
                         ?>
                         <div id="forecast">
                             <div class="box" id="start-box">
-                                <?php echo "<h3>" . $daysAhead[0] . "</h3>"; 
+                                <?php echo "<h2>" . $daysAhead[0] . "</h2>"; 
                                     echo "<h3>" . $result['forecast'][0] . "</h3>";
+                                    $logo0 = $result["forecast"][1];
+                                    echo "<img src='https://openweathermap.org/img/wn/$logo0.png'>";
                                 ?>
                             </div>
                             <div class="box">
-                                <?php echo "<h3>" . $daysAhead[1] . "</h3>";
-                                    echo "<h3>" . $result['forecast'][1] . "</h3>";
-                                ?>
-                            </div>
-                            <div class="box">
-                                <?php echo "<h3>" . $daysAhead[2] . "</h3>"; 
+                                <?php echo "<h2>" . $daysAhead[1] . "</h2>";
                                     echo "<h3>" . $result['forecast'][2] . "</h3>";
+                                    $logo1 = $result["forecast"][3];
+                                    echo "<img src='https://openweathermap.org/img/wn/$logo1.png'>";
                                 ?>
                             </div>
                             <div class="box">
-                                <?php echo "<h3>" . $daysAhead[3] . "</h3>"; 
-                                    echo "<h3>" . $result['forecast'][3] . "</h3>";
+                                <?php echo "<h2>" . $daysAhead[2] . "</h2>"; 
+                                    echo "<h3>" . $result['forecast'][4] . "</h3>";
+                                    $logo2 = $result["forecast"][5];
+                                    echo "<img src='https://openweathermap.org/img/wn/$logo2.png'>";
+                                ?>
+                            </div>
+                            <div class="box">
+                                <?php echo "<h2>" . $daysAhead[3] . "</h2>"; 
+                                    echo "<h3>" . $result['forecast'][6] . "</h3>";
+                                    $logo3 = $result["forecast"][7];
+                                    echo "<img src='https://openweathermap.org/img/wn/$logo3.png'>";
                                 ?>
                             </div>
                             <div class="box" id="end-box">
-                                <?php echo "<h3>" . $daysAhead[4] . "</h3>"; 
-                                    echo "<h3>" . $result['forecast'][4] . "</h3>";
+                                <?php echo "<h2>" . $daysAhead[4] . "</h2>"; 
+                                    echo "<h3>" . $result['forecast'][8] . "</h3>";
+                                    $logo4 = $result["forecast"][9];
+                                    echo "<img src='https://openweathermap.org/img/wn/$logo4.png'>";
                                 ?>
                             </div>
                         </div>
@@ -205,10 +220,10 @@
                     <div id="div-map">
                         <div id="map">
 
-                        </div>          
-                    </div>
-                </div>
-            </div>
+                        </div> <!--|   |-->
+                    </div>     <!--|   |-->
+                </div>         <!--|   |  saddam hussein hiding spot-->
+            </div>            <!--|    O=###==; |--> 
         </div>
         <img id="cloud1" class="cloud cloud-left" src="https://raw.githubusercontent.com/pr1xt/weather-app/refs/heads/main/cloud_left.png">
         <img id="cloud2" class="cloud cloud-right" src="https://raw.githubusercontent.com/pr1xt/weather-app/refs/heads/main/cloud_right.png">
@@ -217,3 +232,53 @@
        
     <script src="script.js?<?php echo time(); ?>"></script>  
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+———————————No bitches?———————————
+⠀⣞⢽⢪⢣⢣⢣⢫⡺⡵⣝⡮⣗⢷⢽⢽⢽⣮⡷⡽⣜⣜⢮⢺⣜⢷⢽⢝⡽⣝
+⠸⡸⠜⠕⠕⠁⢁⢇⢏⢽⢺⣪⡳⡝⣎⣏⢯⢞⡿⣟⣷⣳⢯⡷⣽⢽⢯⣳⣫⠇
+⠀⠀⢀⢀⢄⢬⢪⡪⡎⣆⡈⠚⠜⠕⠇⠗⠝⢕⢯⢫⣞⣯⣿⣻⡽⣏⢗⣗⠏⠀
+⠀⠪⡪⡪⣪⢪⢺⢸⢢⢓⢆⢤⢀⠀⠀⠀⠀⠈⢊⢞⡾⣿⡯⣏⢮⠷⠁⠀⠀
+⠀⠀⠀⠈⠊⠆⡃⠕⢕⢇⢇⢇⢇⢇⢏⢎⢎⢆⢄⠀⢑⣽⣿⢝⠲⠉⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⡿⠂⠠⠀⡇⢇⠕⢈⣀⠀⠁⠡⠣⡣⡫⣂⣿⠯⢪⠰⠂⠀⠀⠀⠀
+⠀⠀⠀⠀⡦⡙⡂⢀⢤⢣⠣⡈⣾⡃⠠⠄⠀⡄⢱⣌⣶⢏⢊⠂⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⢝⡲⣜⡮⡏⢎⢌⢂⠙⠢⠐⢀⢘⢵⣽⣿⡿⠁⠁⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠨⣺⡺⡕⡕⡱⡑⡆⡕⡅⡕⡜⡼⢽⡻⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⣼⣳⣫⣾⣵⣗⡵⡱⡡⢣⢑⢕⢜⢕⡝⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⣴⣿⣾⣿⣿⣿⡿⡽⡑⢌⠪⡢⡣⣣⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⡟⡾⣿⢿⢿⢵⣽⣾⣼⣘⢸⢸⣞⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠁⠇⠡⠩⡫⢿⣝⡻⡮⣒⢽⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+——————————————————————————————————
+ -->
