@@ -23,11 +23,6 @@
         
         error_reporting(error_level: 0);
 
-        function conn_db(): bool|mysqli{
-            $conn = @mysqli_connect(hostname: 'localhost', username: 'root', password: '', database: 'baza_pogoda');
-            mysqli_close(mysql: $conn);
-            return $conn;
-        }
         function get_forecast($lat,$lon){
             global $MAP_KEY; 
             $url = "api.openweathermap.org/data/2.5/forecast?lat={$lat}&lon={$lon}&appid=$MAP_KEY&units=metric ";
@@ -70,7 +65,7 @@
 
             $name = $data["location"]["name"];
             $temperature = $data["current"]["temp_c"];
-            $wind_mph = $data["current"]["wind_mph"];
+            $wind_kph = $data["current"]["wind_kph"];
             $humidity = $data["current"]["humidity"];
             $feelslike_c = $data["current"]["feelslike_c"];
             $cloud = $data["current"]["cloud"];
@@ -89,7 +84,7 @@
             return [
                 "name" => $name,
                 "temperature" => $temperature, 
-                "wind_mph" => $wind_mph,
+                "wind_kph" => $wind_kph,
                 "feelslike_c" => $feelslike_c,
                 "icon" => $icon,        
                 "text" => $text,    
@@ -111,21 +106,31 @@
             }
         }else{ 
             $result = get_weather(loc: "London");
-        }
+        };
 
-        //to get $result u should call get_weather($loc) where $loc is string of location in ENGLISH
- 
-        // $weather_data = json_decode(json: file_get_contents(filename: 'php://input'), associative: true);
-        // show_ur_weather(data: $weather_data);
-        
-        function show_ur_weather($data): void {
-            // Assuming $data['lat'] and $data['lon'] exist
-            if (isset($data['lat']) && isset($data['lon'])) {
-                echo json_encode(value: array('message' => 'Data received and processed', 'lat' => $data['lat'], 'lon' => $data['lon']));
-            } else {
-                echo json_encode(value: array('error' => 'Latitude and longitude not found'));
-            }
+        function generateRandomNumber($length = 11) {
+            $min = pow(10, $length - 1); // Smallest 11-digit number
+            $max = pow(10, $length) - 1; // Largest 11-digit number
+            return mt_rand($min, $max);
         }
+        
+        function get_hist(){
+            if(!isset($_COOKIE["db_code"])) {
+                $num = generateRandomNumber();
+                setcookie("db_code",$num,time() + (86400 * 30));
+                $conn = @mysqli_connect('localhost', 'root', '', 'baza_pogoda');
+                $curr_date = date('Y-m-d');
+                $sql = "INSERT INTO users (GeneratedKey, start_date) VALUES ('$num', '$curr_date');";
+                mysqli_query($conn, $sql);
+                mysqli_close($conn); 
+              } else {
+                
+                
+              }
+              
+        };
+        get_hist();
+
 
     ?>
         <div id="space">
@@ -134,26 +139,30 @@
                     <div id="left_info">
                         <div id="img_info">
                             <?php
-                                echo "<img id='weather-icon' src='" . $result["icon"] . "' alt='icon' >";
                                 echo "<h1 id='text'>" . $result["text"] . "</h1>"; //not scaling? NO BITCHES???
-                                echo "<h1>" . $result["temperature"] . "℃</h1>"; //not scaling?
                                 echo "<h2 class='info'>Feels like: " . $result["feelslike_c"] . "℃</h2>";
-                                echo "<h2 class='info'>Wind speed: " . $result["wind_mph"] . "mph</h2>";
+                                echo "<h2 class='info'>Wind speed: " . $result["wind_kph"] . "kph</h2>";
                                 echo "<h2 class='info'>Humidity: " . $result["humidity"] . "%</h2>";
                                 echo "<h2 class='info'>Clouds: " . $result["cloud"] . "%</h2>";
                                 echo "<h2 class='info'>Pressure: " . $result["pressure_mb"] . "hPa</h2>";
                             ?>
                         </div>
                         <div id="temp_info">
+                            <div id="part1">
+                                    <?php
+                                        echo "<h1 id='temp'>" . $result["temperature"] . "℃</h1>"; //not scaling? NO TOWERS???
+                                        echo "<img id='weather-icon' src='" . $result["icon"] . "' alt='icon' >";
+                                    ?>
+                                </div>
                             <div id="city_name">
-                            <?php
-                                echo "<h1 id='city_name'>" . $result["name"] . "</h1>";
-                            ?>
+                                <?php
+                                    echo "<h1 id='city_name_text'>" . $result["name"] . "</h1>";
+                                ?>
                             </div>
                             <div id="loc_time">
-                            <?php
-                                echo "<h2 id='localtime'>" . $result["localtime"] . "</h2>"; //not scaling?
-                            ?>
+                                <?php
+                                    echo "<h2 id='localtime'>" . $result["localtime"] . "</h2>"; //not scaling? NO QUEEN???
+                                ?>
                             </div>
                         </div>
                         <?php
@@ -222,8 +231,8 @@
 
                         </div> <!--|   |-->
                     </div>     <!--|   |-->
-                </div>         <!--|   |  saddam hussein hiding spot-->
-            </div>            <!--|    O=###==; |--> 
+                </div>         <!--|   |__________  saddam hussein hiding spot-->
+            </div>             <!--|    O=###==;  |--> 
         </div>
         <img id="cloud1" class="cloud cloud-left" src="https://raw.githubusercontent.com/pr1xt/weather-app/refs/heads/main/cloud_left.png">
         <img id="cloud2" class="cloud cloud-right" src="https://raw.githubusercontent.com/pr1xt/weather-app/refs/heads/main/cloud_right.png">
@@ -251,22 +260,25 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!-- 
-———————————No bitches?———————————
+————————————— No Towers? ———————————
+⠀⣞⢽⢪⢣⢣⢣⢫⡺⡵⣝⡮⣗⢷⢽⢽⢽⣮⡷⡽⣜⣜⢮⢺⣜⢷⢽⢝⡽⣝
+⠸⡸⠜⠕⠕⠁⢁⢇⢏⢽⢺⣪⡳⡝⣎⣏⢯⢞⡿⣟⣷⣳⢯⡷⣽⢽⢯⣳⣫⠇
+⠀⠀⢀⢀⢄⢬⢪⡪⡎⣆⡈⠚⠜⠕⠇⠗⠝⢕⢯⢫⣞⣯⣿⣻⡽⣏⢗⣗⠏⠀
+⠀⠪⡪⡪⣪⢪⢺⢸⢢⢓⢆⢤⢀⠀⠀⠀⠀⠈⢊⢞⡾⣿⡯⣏⢮⠷⠁⠀⠀
+⠀⠀⠀⠈⠊⠆⡃⠕⢕⢇⢇⢇⢇⢇⢏⢎⢎⢆⢄⠀⢑⣽⣿⢝⠲⠉⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⡿⠂⠠⠀⡇⢇⠕⢈⣀⠀⠁⠡⠣⡣⡫⣂⣿⠯⢪⠰⠂⠀⠀⠀⠀
+⠀⠀⠀⠀⡦⡙⡂⢀⢤⢣⠣⡈⣾⡃⠠⠄⠀⡄⢱⣌⣶⢏⢊⠂⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⢝⡲⣜⡮⡏⢎⢌⢂⠙⠢⠐⢀⢘⢵⣽⣿⡿⠁⠁⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠨⣺⡺⡕⡕⡱⡑⡆⡕⡅⡕⡜⡼⢽⡻⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⣼⣳⣫⣾⣵⣗⡵⡱⡡⢣⢑⢕⢜⢕⡝⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⣴⣿⣾⣿⣿⣿⡿⡽⡑⢌⠪⡢⡣⣣⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⡟⡾⣿⢿⢿⢵⣽⣾⣼⣘⢸⢸⣞⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠁⠇⠡⠩⡫⢿⣝⡻⡮⣒⢽⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+——————————————————————————————————
+ -->
+<!-- 
+——————————— No Queen ? ———————————
 ⠀⣞⢽⢪⢣⢣⢣⢫⡺⡵⣝⡮⣗⢷⢽⢽⢽⣮⡷⡽⣜⣜⢮⢺⣜⢷⢽⢝⡽⣝
 ⠸⡸⠜⠕⠕⠁⢁⢇⢏⢽⢺⣪⡳⡝⣎⣏⢯⢞⡿⣟⣷⣳⢯⡷⣽⢽⢯⣳⣫⠇
 ⠀⠀⢀⢀⢄⢬⢪⡪⡎⣆⡈⠚⠜⠕⠇⠗⠝⢕⢯⢫⣞⣯⣿⣻⡽⣏⢗⣗⠏⠀

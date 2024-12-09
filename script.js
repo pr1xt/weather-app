@@ -196,7 +196,7 @@ const ChangeBg = () => {
         document.body.style.background = "linear-gradient(100deg, rgb(33, 97, 194) 0%, rgb(152, 167, 168) 20%, rgb(93, 95, 86) 100%)";
     }
     else if(document.getElementById("text").innerText == "Light snow"){
-        document.body.style.background = "linear-gradient(90deg, rgba(233,253,255,0.7) 0%, rgba(218,237,255,1) 65%, rgba(213,212,245,1) 100%)";
+        document.body.style.background = "linear-gradient(90deg, rgba(133,153,155,0.7) 0%, rgba(218,237,255,1) 45%, rgba(213,212,245,1) 100%)";
     }
     else if(document.getElementById("text").innerText == "Moderate snow"){
         document.body.style.background = "linear-gradient(90deg, rgba(166,188,190,1) 0%, rgba(177,185,192,1) 55%, rgba(253,242,225,1) 100%)";
@@ -225,7 +225,7 @@ function search(){
     setTimeout()
 }
 
-const MAX_CHILDREN = 5;
+/* const MAX_CHILDREN = 5;
 const parentDiv = document.getElementById('history');
 
 function addButtonToParent(Button) {
@@ -235,7 +235,7 @@ function addButtonToParent(Button) {
     parentDiv.removeChild(parentDiv.children[0]);
   }
   parentDiv.appendChild(Button);
-}
+} */
 
 document.getElementById("submit").addEventListener("click", add_history);
 

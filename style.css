@@ -51,7 +51,7 @@ input{
 }
 
 #img_info{
-    width: 60vw;    
+    width: 60vw;
     height: 63vh;
     padding-left: 25px;
 }
@@ -69,7 +69,7 @@ input{
     height: 21vh;
     border: 1px solid black;
     border-radius: 10px;
-    background-color: rgba(154, 159, 173, 0.616);
+    background-color: rgb(151, 155, 165);
     margin: auto;
 }
 
@@ -106,8 +106,8 @@ input{
 #sub_loc{
     padding: 0.5vh;
     border-radius: 7px;
-    width: 8.7vw;
-    height: 3vh;
+    width: fit-content;
+    height: 3.2vh;
     background-color: rgba(54, 42, 42, 0.675);
     border: 1px solid black;
     transition: 0.3s;
@@ -128,30 +128,58 @@ input{
 }
 
 #search:hover{
-    background-color: rgba(78, 63, 63, 0.675);
-    border: 1px solid rgb(146, 122, 122);
+    background-color: rgba(88, 70, 70, 0.675);
 }
 
 #submit:hover{
-    background-color: rgba(78, 63, 63, 0.675);
-    border: 1px solid rgb(146, 122, 122);
+    background-color: rgba(88, 70, 70, 0.675);
 }
 
 #sub_loc:hover{
-    background-color: rgba(78, 63, 63, 0.675);
-    border: 1px solid rgb(146, 122, 122);
+    background-color: rgba(88, 70, 70, 0.675);
 }
 
 #weather-icon{
-    width: 10vw;
+    width: 9.4vw;
 }
 
 #city_name{
-    font-size: 7vh;
+    font-size: 4vh;
+    height: 18vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-left: 1vw;
+}
+
+#city_name_text{
+    position: fixed;
+}
+
+#temp {
+    display: flex;
+    justify-self: flex-start;
+    font-size: 6vh;
+    margin-left: 1vw;
+    margin-right: 0.12vw;
+}
+
+#part1{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: inherit;
+}
+
+#loc_time{
+    position: relative;
+    margin-left: 1vw;
 }
 
 #cloud-container {
-    position: fixed;
+    position: absolute;
     width: 100vw;
     height: 100vh;
     overflow: hidden;
@@ -173,11 +201,17 @@ input{
 .box {
     display: flex;
     width: 11.9vw;
-    height: 21vh;
+    height: 20.7000000000000000000000000000000000690000000000000000000000000000004200000000000000000000000000000000002137vh;
     padding: 2px;
     border-right: 1px solid black;
     flex-direction: column;
     align-items: center;
+    text-transform: capitalize;
+    transition: 0.4s;
+}
+
+.box:hover{
+    background-color: rgb(120, 124, 128, 0.6);
 }
 
 #start-box {
@@ -227,8 +261,13 @@ input{
 
 .box > h2{
     margin-bottom: 0.4vh;
+    font-size: 3vh;
 }
 
+#img_info > h1{
+    margin-top: 25vh;
+    margin-bottom: 0.1vh;
+}
 
 @keyframes moveLeft {
     0% {
