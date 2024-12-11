@@ -225,19 +225,54 @@ function search(){
     setTimeout()
 }
 
-/* const MAX_CHILDREN = 5;
-const parentDiv = document.getElementById('history');
+//---------------- adding history ------------------
 
-function addButtonToParent(Button) {
-  const childrenCount = parentDiv.children.length;
-  if (childrenCount >= MAX_CHILDREN) {
-    // Remove oldest child
-    parentDiv.removeChild(parentDiv.children[0]);
-  }
-  parentDiv.appendChild(Button);
-} */
+const container = document.getElementById("history");
 
-document.getElementById("submit").addEventListener("click", add_history);
+// Set the maximum child count
+const maxChildren = 6;
+
+// Function to add a child div
+function addChild() {
+    const child = document.createElement('div');
+    child.className = "history-window";
+    container.appendChild(child);
+
+    // Check if we've reached the maximum child count
+    if (container.children.length >= maxChildren) {
+        // Remove the oldest child if we've exceeded the limit
+        container.removeChild(container.children[0]);
+    }
+}
+
+// Function to save the current state of the history
+function saveHistoryState() {
+    const historyState = [];
+    for (let i = 0; i < container.children.length; i++) {
+        historyState.push(container.children[i].outerHTML);  // Save the HTML of each child
+    }
+    localStorage.setItem('history', JSON.stringify(historyState));  // Store in localStorage
+}
+  
+// Function to load the saved state from localStorage
+function loadHistoryState() {
+    const savedHistory = localStorage.getItem('history');
+    if (savedHistory) {
+        const historyState = JSON.parse(savedHistory);
+        historyState.forEach(childHTML => {
+            const child = document.createElement('div');
+            child.className = 'history-window';
+            child.innerHTML = childHTML;
+            container.appendChild(child);
+        });
+    }
+}
+  
+// Load the history when the page is loaded
+window.addEventListener('load', loadHistoryState);
+document.getElementById("submit").addEventListener("click", addChild);
+
+//--------------------------------------------
 
 document.addEventListener('click', (event) => {
     const cursorX = event.clientX;

@@ -123,11 +123,11 @@
                 $sql = "INSERT INTO users (GeneratedKey, start_date) VALUES ('$num', '$curr_date');";
                 mysqli_query($conn, $sql);
                 mysqli_close($conn); 
-              } else {
+            } else {
                 
                 
-              }
-              
+            }
+            header("Refresh: 1000000000000000000000000000000");
         };
         get_hist();
 
@@ -214,7 +214,7 @@
                     
                     <div id="right_info">
                     <button id="sub_loc" name="sub_loc" type="submit" onclick="getLocation()">Get Your Location</button>
-                        <form name="locForm" action="index.php" onsubmit="return change_prompt()" method="POST">
+                        <form id="locForm" name="locForm" action="index.php" onsubmit="return change_prompt()" method="POST">
                             <!-- ❓🌤️🌧️🌦️⛈️⛅🌥️🌨️🌩️📍🔍🔎 -->
                             <input id="search" type="text" name="location" placeholder="Search here" required>
                             <button id="submit" name="look" type="submit" onclick="search()">🔎</button>
