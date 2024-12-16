@@ -225,8 +225,11 @@ input{
 }
 
 #history{
+    display: flex;
     width: 18vw;
     height: 67vh;
+    flex-direction: column-reverse;
+    margin-top: -3vh;
 }
 
 .history-window{
@@ -234,8 +237,18 @@ input{
     height: 8vh;
     border: 1px solid black;
     border-radius: 10px;
-    margin-bottom: 31px;
-    background-color: rgba(196, 163, 163, 0.315);
+    margin-bottom: 3vh;
+    background-color: rgba(196, 163, 163, 0.415);
+    padding: 5px;
+    font-weight: bold;
+    white-space: pre-line;
+    line-height: 3vh;
+    transition: 0.4s;
+}
+
+.history-window:hover{
+    background-color: teal;
+    border: 1px solid whitesmoke
 }
 
 .cloud {

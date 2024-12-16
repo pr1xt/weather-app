@@ -177,7 +177,7 @@ const ChangeBg = () => {
         document.body.style.background = "linear-gradient(90deg, rgba(114,113,129,1) 0%, rgba(99,98,125,1) 46%, rgba(74,74,140,1) 79%, rgba(24,48,152,1) 100%)";
     }
     else if(document.getElementById("text").innerText == "Patchy rain nearby"){
-        document.body.style.background = "linear-gradient(90deg, rgba(18,65,139,1) 0%, rgba(93,104,112,1) 54%, rgba(68,84,88,1) 100%)";
+        document.body.style.background = "linear-gradient(90deg, rgba(18,65,139,1) 0%, rgba(113,104,112,1) 64%, rgba(68,84,88,1) 100%)";
         document.getElementById("left_info").style.color = "rgb(209, 205, 205)";
     }
     else if(document.getElementById("text").innerText == "Light rain shower"){
@@ -190,7 +190,7 @@ const ChangeBg = () => {
         document.body.style.background = "linear-gradient(100deg, rgb(152, 167, 168) 0%, rgb(93, 95, 86) 50%, rgb(93, 95, 86) 100%)";
     }
     else if(document.getElementById("text").innerText == "Mist"){
-        document.body.style.background = "linear-gradient(100deg, rgb(93, 95, 86) 0%, rgb(152, 167, 168) 50%, rgb(93, 95, 86) 100%)";
+        document.body.style.background = "linear-gradient(100deg, rgb(123, 135, 126) 0%, rgb(152, 167, 168) 50%, rgb(93, 95, 86) 100%)";
     }
     else if(document.getElementById("text").innerText == "Light drizzle"){
         document.body.style.background = "linear-gradient(100deg, rgb(33, 97, 194) 0%, rgb(152, 167, 168) 20%, rgb(93, 95, 86) 100%)";
@@ -203,6 +203,9 @@ const ChangeBg = () => {
     }
     else if(document.getElementById("text").innerText == "Heavy snow"){
         document.body.style.background = " linear-gradient(158deg, rgba(144,144,144,1) 0%, rgba(177,185,192,1) 55%, rgba(158,150,139,1) 100%)";
+    }
+    else if(document.getElementById("text").innerText == "Moderate rain"){
+        document.body.style.background = " linear-gradient(100deg, rgba(144,144,144,1) 0%, rgba(177,185,192,1) 55%, rgba(98,90,219,1) 100%)";
     }
     else{
         document.body.style.background = " linear-gradient(158deg, rgba(173,148,148,1) 0%, rgba(177,185,192,1) 55%, rgba(132,187,185,1) 100%)";
@@ -228,6 +231,9 @@ function search(){
 //---------------- adding history ------------------
 
 const container = document.getElementById("history");
+var message = $('input[name="message"]').val();
+var message_temp = $('input[name="message_temp"]').val();
+var message_date = $('input[name="message_date"]').val();
 
 // Set the maximum child count
 const maxChildren = 6;
@@ -236,6 +242,11 @@ const maxChildren = 6;
 function addChild() {
     const child = document.createElement('div');
     child.className = "history-window";
+    child.textContent = "Searched at " + message_date + '\n' + message + " " + message_temp + "℃";
+    var ChildForm = document.createElement('form');
+    ChildForm.className = "ChildForm";
+    ChildForm.method = "POST";
+    child.appendChild(ChildForm);
     container.appendChild(child);
 
     // Check if we've reached the maximum child count
@@ -243,13 +254,18 @@ function addChild() {
         // Remove the oldest child if we've exceeded the limit
         container.removeChild(container.children[0]);
     }
+
+    saveHistoryState();  // Save the history every time a new div is added
 }
 
 // Function to save the current state of the history
 function saveHistoryState() {
     const historyState = [];
     for (let i = 0; i < container.children.length; i++) {
-        historyState.push(container.children[i].outerHTML);  // Save the HTML of each child
+        const child = container.children[i];
+        historyState.push({
+            textContent: child.textContent // Save the text content, not the full HTML
+        });
     }
     localStorage.setItem('history', JSON.stringify(historyState));  // Store in localStorage
 }
@@ -259,20 +275,20 @@ function loadHistoryState() {
     const savedHistory = localStorage.getItem('history');
     if (savedHistory) {
         const historyState = JSON.parse(savedHistory);
-        historyState.forEach(childHTML => {
+        historyState.forEach(item => {
             const child = document.createElement('div');
             child.className = 'history-window';
-            child.innerHTML = childHTML;
+            child.textContent = item.textContent;  // Restore the text content
             container.appendChild(child);
         });
     }
 }
-  
+
 // Load the history when the page is loaded
-window.addEventListener('load', loadHistoryState);
+window.addEventListener("load", loadHistoryState);
 document.getElementById("submit").addEventListener("click", addChild);
 
-//--------------------------------------------
+//------------------------------------------------
 
 document.addEventListener('click', (event) => {
     const cursorX = event.clientX;

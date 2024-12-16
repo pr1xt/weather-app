@@ -19,7 +19,7 @@
         
     <?php
         include "keys.php";
-        $date = date(format: "Y/m/d - h:i a");
+        $date = date(format: "Y/m/d h:ia");
         
         error_reporting(error_level: 0);
 
@@ -141,7 +141,7 @@
                             <?php
                                 echo "<h1 id='text'>" . $result["text"] . "</h1>"; //not scaling? NO BITCHES???
                                 echo "<h2 class='info'>Feels like: " . $result["feelslike_c"] . "℃</h2>";
-                                echo "<h2 class='info'>Wind speed: " . $result["wind_kph"] . "kph</h2>";
+                                echo "<h2 class='info'>Wind speed: " . $result["wind_kph"] . "k/h</h2>";
                                 echo "<h2 class='info'>Humidity: " . $result["humidity"] . "%</h2>";
                                 echo "<h2 class='info'>Clouds: " . $result["cloud"] . "%</h2>";
                                 echo "<h2 class='info'>Pressure: " . $result["pressure_mb"] . "hPa</h2>";
@@ -238,7 +238,14 @@
         <img id="cloud2" class="cloud cloud-right" src="https://raw.githubusercontent.com/pr1xt/weather-app/refs/heads/main/cloud_right.png">
     
     </body>
-       
+    <?php
+        $data_date = $date;
+        $data_name = $result["name"];
+        $data_temp = $result["temperature"];
+        echo '<input type="hidden" name="message" value="' . $data_name . '">';
+        echo '<input type="hidden" name="message_temp" value="' . $data_temp . '">';
+        echo '<input type="hidden" name="message_date" value="' . $data_date . '">';
+    ?>
     <script src="script.js?<?php echo time(); ?>"></script>  
 </html>
 
