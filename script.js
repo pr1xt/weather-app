@@ -224,9 +224,17 @@ function search(){
     document.getElementById("cloud-container").style.display = "none";
     document.getElementById("cloud1").style.display = "none";
     document.getElementById("cloud2").style.display = "none";
-
     setTimeout()
 }
+
+function find_error(){
+    if(document.getElementById("temp").innerText == "℃"){
+        window.history.back();
+        alert("We could not find place you just searched.");
+    }
+}
+
+document.getElementById("submit").addEventListener("click", find_error());
 
 //---------------- adding history ------------------
 
@@ -243,14 +251,22 @@ function addChild() {
     const child = document.createElement('div');
     child.className = "history-window";
     child.textContent = "Searched at " + message_date + '\n' + message + " " + message_temp + "℃";
-    var ChildForm = document.createElement('form');
+
+
+    const ChildForm = document.createElement('form');
     ChildForm.className = "ChildForm";
-    ChildForm.method = "POST";
+    
+    // ChildForm.method = "POST";
+
     child.appendChild(ChildForm);
     container.appendChild(child);
 
+    console.log(container.lastChild);
+    console.log(ChildForm);
+
     // Check if we've reached the maximum child count
     if (container.children.length >= maxChildren) {
+        console.log(container.children)
         // Remove the oldest child if we've exceeded the limit
         container.removeChild(container.children[0]);
     }
@@ -275,11 +291,27 @@ function loadHistoryState() {
     const savedHistory = localStorage.getItem('history');
     if (savedHistory) {
         const historyState = JSON.parse(savedHistory);
+        var x = 0;
         historyState.forEach(item => {
-            const child = document.createElement('div');
-            child.className = 'history-window';
-            child.textContent = item.textContent;  // Restore the text content
+
+            const child = document.createElement('form');
+            child.className = 'ChildForm';
+            child.id = 'ChildForm'+x;
+            child.method = "POST";
+
+            const ChildForm = document.createElement('div');
+            ChildForm.className = "history-window";
+            
+            ChildForm.id = "history-window"+x;
+            ChildForm.textContent = item.textContent;
+
+            child.onclick = "SubForm("+x+")";
+        
+            child.appendChild(ChildForm);
             container.appendChild(child);
+
+                
+            x++;
         });
     }
 }
