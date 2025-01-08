@@ -149,11 +149,11 @@
                         </div>
                         <div id="temp_info">
                             <div id="part1">
-                                    <?php
-                                        echo "<h1 id='temp'>" . $result["temperature"] . "℃</h1>"; //not scaling? NO TOWERS???
-                                        echo "<img id='weather-icon' src='" . $result["icon"] . "' alt='icon' >";
-                                    ?>
-                                </div>
+                                <?php
+                                    echo "<h1 id='temp'>" . $result["temperature"] . "℃</h1>"; //not scaling? NO TOWERS???
+                                    echo "<img id='weather-icon' src='" . $result["icon"] . "' alt='icon' >";
+                                ?>
+                            </div>
                             <div id="city_name">
                                 <?php
                                     echo "<h1 id='city_name_text'>" . $result["name"] . "</h1>";
@@ -223,6 +223,15 @@
                         <div id="history">
                          
                         </div>
+                        <?php
+                        if(isset($_POST["look"])){
+                            if(isset($_POST['location'])){
+                                $location = $_POST["location"];
+                
+                                $result = get_weather(loc: $location);    
+                            }
+                        }
+                        ?>
                     </div>
                 </div>
                 <div id="bottom_info">

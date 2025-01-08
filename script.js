@@ -299,14 +299,21 @@ function loadHistoryState() {
             child.id = 'ChildForm'+x;
             child.method = "POST";
 
-            const ChildForm = document.createElement('div');
+            const ChildForm = document.createElement('button');
             ChildForm.className = "history-window";
-            
+            ChildForm.type = "submit";
+            ChildForm.name = "submit"+x;
             ChildForm.id = "history-window"+x;
             ChildForm.textContent = item.textContent;
-
             child.onclick = "SubForm("+x+")";
         
+
+            // const ChildForm_h = document.createElement('input');
+            // ChildForm_h.type = "hidden";
+            // ChildForm_h.value = ""+textContent;
+            // ChildForm_h.name = "loc_"+x;
+
+            // child.appendChild(ChildForm_h);
             child.appendChild(ChildForm);
             container.appendChild(child);
 
