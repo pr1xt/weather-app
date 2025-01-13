@@ -299,7 +299,7 @@ function loadHistoryState() {
             child.id = 'ChildForm'+x;
             child.method = "POST";
 
-            const ChildForm = document.createElement('button');
+            var ChildForm = document.createElement('button');
             ChildForm.className = "history-window";
             ChildForm.type = "submit";
             ChildForm.name = "submit"+x;
@@ -308,16 +308,17 @@ function loadHistoryState() {
             child.onclick = "SubForm("+x+")";
         
 
-            // const ChildForm_h = document.createElement('input');
-            // ChildForm_h.type = "hidden";
-            // ChildForm_h.value = ""+textContent;
-            // ChildForm_h.name = "loc_"+x;
+            var HiddenInput = document.createElement("input");
+            HiddenInput.setAttribute('style', 'display:none;');
+            HiddenInput.type = "text";
+            // HiddenInput.type = "text";
+            HiddenInput.value = item.textContent.slice(30, item.textContent.length - 1).split(" ").slice(0, -1).join(" ");
+            HiddenInput.name = "loc_"+x;
 
-            // child.appendChild(ChildForm_h);
+            child.appendChild(HiddenInput);
             child.appendChild(ChildForm);
             container.appendChild(child);
 
-                
             x++;
         });
     }

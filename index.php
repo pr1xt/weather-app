@@ -98,6 +98,7 @@
             ];
         }
 
+        
         if(isset($_POST["look"])){
             if(isset($_POST['location'])){
                 $location = $_POST["location"];
@@ -105,7 +106,37 @@
                 $result = get_weather(loc: $location);    
             }
         }else{ 
-            $result = get_weather(loc: "London");
+            if(isset($_POST["ChildForm0"])){
+                // $location = $_POST["loc_0"];
+                $localtion = "Warsaw";
+    
+                $result = get_weather(loc: $location); 
+            }
+            if(isset($_POST["ChildForm1"])){
+                // $location = $_POST["loc_0"];
+                $localtion = "Warsaw";
+    
+                $result = get_weather(loc: $location); 
+            }
+            if(isset($_POST["ChildForm2"])){
+                // $location = $_POST["loc_0"];
+                $localtion = "Warsaw";
+    
+                $result = get_weather(loc: $location); 
+            }
+            if(isset($_POST["ChildForm3"])){
+                // $location = $_POST["loc_0"];
+                $localtion = "Warsaw";
+    
+                $result = get_weather(loc: $location); 
+            }
+            if(isset($_POST["ChildForm4"])){
+                // $location = $_POST["loc_0"];
+                $localtion = "Warsaw";
+    
+                $result = get_weather(loc: $location); 
+            }
+            else $result = get_weather(loc: $_POST["loc_2"]);
         };
 
         function generateRandomNumber($length = 11) {
@@ -224,13 +255,6 @@
                          
                         </div>
                         <?php
-                        if(isset($_POST["look"])){
-                            if(isset($_POST['location'])){
-                                $location = $_POST["location"];
-                
-                                $result = get_weather(loc: $location);    
-                            }
-                        }
                         ?>
                     </div>
                 </div>
