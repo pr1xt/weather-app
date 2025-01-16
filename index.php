@@ -136,7 +136,7 @@
     
                 $result = get_weather(loc: $location); 
             }
-            else $result = get_weather(loc: $_POST["loc_2"]);
+            else $result = get_weather(loc: "Warsaw");
         };
 
         function generateRandomNumber($length = 11) {
