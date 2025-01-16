@@ -7,7 +7,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 const weatherLayer = L.tileLayer(`https://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=e4d3cd73d50ad843c052abd36ad08c32`, {
-    maxZoom: 18
+    maxZoom: 17
 });
 
 weatherLayer.addTo(map);

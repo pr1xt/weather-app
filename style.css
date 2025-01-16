@@ -215,7 +215,7 @@ input{
 }
 
 .box:hover{
-    background-color: rgb(120, 124, 128, 0.6);
+    background-color: rgb(120, 124, 128, 0.7);
 }
 
 #start-box {
@@ -239,7 +239,7 @@ input{
 
 .history-window{
     width: 18vw;
-    height: 9.5h;
+    height: 9.5;
     border: 1px solid black;
     border-radius: 10px;
     margin-bottom: 3vh;
