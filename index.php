@@ -105,39 +105,37 @@
 
                 $result = get_weather(loc: $location);    
             }
-        }else{ 
+        }
+        else{
             if(isset($_POST["ChildForm0"])){
-                // $location = $_POST["loc_0"];
-                $localtion = "Warsaw";
-    
-                $result = get_weather(loc: $location); 
+                $location_1 = $_POST["loc_0"];
+
+                $result = get_weather(loc: $location_1);
             }
             if(isset($_POST["ChildForm1"])){
-                // $location = $_POST["loc_0"];
-                $localtion = "Warsaw";
+                $location_2 = $_POST["loc_1"];
     
-                $result = get_weather(loc: $location); 
+                $result = get_weather(loc: $location_2);
             }
             if(isset($_POST["ChildForm2"])){
-                // $location = $_POST["loc_0"];
-                $localtion = "Warsaw";
+                $location_3 = $_POST["loc_2"];
     
-                $result = get_weather(loc: $location); 
+                $result = get_weather(loc: $location_3);
             }
             if(isset($_POST["ChildForm3"])){
-                // $location = $_POST["loc_0"];
-                $localtion = "Warsaw";
-    
-                $result = get_weather(loc: $location); 
+                $location_4 = $_POST["loc_3"];
+                
+                $result = get_weather(loc: $location_4);
             }
             if(isset($_POST["ChildForm4"])){
-                // $location = $_POST["loc_0"];
-                $localtion = "Warsaw";
-    
-                $result = get_weather(loc: $location); 
+                $location_5 = $_POST["loc_4"];
+     
+                $result = get_weather(loc: $location_5);
             }
-            else $result = get_weather(loc: "Warsaw");
-        };
+            else{
+                $result = get_weather(loc: "Warsaw");
+            }
+        }
 
         function generateRandomNumber($length = 11) {
             $min = pow(10, $length - 1); // Smallest 11-digit number
@@ -255,6 +253,7 @@
                          
                         </div>
                         <?php
+                            
                         ?>
                     </div>
                 </div>
