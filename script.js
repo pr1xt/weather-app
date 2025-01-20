@@ -291,36 +291,33 @@ function loadHistoryState() {
     const savedHistory = localStorage.getItem('history');
     if (savedHistory) {
         const historyState = JSON.parse(savedHistory);
-        var x = 0;
-        historyState.forEach(item => {
-
+        historyState.forEach((item, index) => {
             const child = document.createElement('form');
             child.className = 'ChildForm';
-            child.id = 'ChildForm'+x;
+            child.id = 'ChildForm' + index;
             child.method = "POST";
-
+            child.action = "index.php";
+        
             var ChildForm = document.createElement('button');
             ChildForm.className = "history-window";
             ChildForm.type = "submit";
-            ChildForm.name = "submit"+x;
-            ChildForm.id = "history-window"+x;
+            ChildForm.name = "submit" + index;
+            ChildForm.id = "history-window" + index;
             ChildForm.textContent = item.textContent;
-            child.onclick = "SubForm("+x+")";
+            child.onclick = `SubForm(${index})`;  // poprawne przypisanie funkcji onclick
         
-
             var HiddenInput = document.createElement("input");
             HiddenInput.setAttribute('style', 'display:none;');
             HiddenInput.type = "text";
-            // HiddenInput.type = "text";
             HiddenInput.value = item.textContent.slice(30, item.textContent.length - 1).split(" ").slice(0, -1).join(" ");
-            HiddenInput.name = "loc_"+x;
-
+            HiddenInput.name = "loc_" + index;
+        
             child.appendChild(HiddenInput);
             child.appendChild(ChildForm);
             container.appendChild(child);
 
-            x++;
-        });
+            console.log(HiddenInput.value);
+        });        
     }
 }
 
