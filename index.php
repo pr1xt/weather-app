@@ -138,7 +138,7 @@
                 $result = get_weather(loc: $location_5);
             }
             else{
-                $result = get_weather(loc: "Warsaw");
+                $result = get_weather(loc: "New York");
             }
         }
 
