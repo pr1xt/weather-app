@@ -24,10 +24,13 @@
         
         error_reporting(error_level: 0);
 
+        for($x=1; $x > 1; $x++){
+            header("Refresh:100000000000000000");
+        }
+
         function get_forecast($lat,$lon){
             global $MAP_KEY; 
-            
-            $url = "http://api.openweathermap.org/data/2.5/forecast?lat=$lat&lon=$lon&appid=$MAP_KEY&units=metric";
+            $url = "api.openweathermap.org/data/2.5/forecast?lat={$lat}&lon={$lon}&appid=$MAP_KEY&units=metric ";
             $ch = curl_init();
 
             curl_setopt(handle: $ch, option: CURLOPT_RETURNTRANSFER, value: 1);
@@ -158,7 +161,6 @@
                 
                 
             }
-            header("Refresh: 1000000000000000000000000000000");
         };
         get_hist();
 
@@ -244,7 +246,6 @@
                     </div>
                     
                     <div id="right_info">
-                    <button id="sub_loc" name="sub_loc" type="submit" onclick="getLocation()">Get Your Location</button>
                         <form id="locForm" name="locForm" action="index.php" onsubmit="return change_prompt()" method="POST">
                             <!-- ❓🌤️🌧️🌦️⛈️⛅🌥️🌨️🌩️📍🔍🔎 -->
                             <input id="search" type="text" name="location" placeholder="Search here" required>
