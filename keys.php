@@ -1,0 +1,4 @@
+<?php
+$API_KEY = "1bc5dc0c468f4cd181f70404240210";
+$MAP_KEY = "e4d3cd73d50ad843c052abd36ad08c32";
+?>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="images/icon.png" type="image/png">
+    <link rel="icon" href="icon.png" type="image/png">
     <link rel="stylesheet" href="style.css"<?php echo time();?>>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
@@ -18,6 +18,7 @@
      crossorigin=""></script>
         
     <?php
+        $MAP_KEY = "e4d3cd73d50ad843c052abd36ad08c32";
         include "keys.php";
         $date = date(format: "Y/m/d h:ia");
         
@@ -25,7 +26,8 @@
 
         function get_forecast($lat,$lon){
             global $MAP_KEY; 
-            $url = "api.openweathermap.org/data/2.5/forecast?lat={$lat}&lon={$lon}&appid=$MAP_KEY&units=metric ";
+            
+            $url = "http://api.openweathermap.org/data/2.5/forecast?lat=$lat&lon=$lon&appid=$MAP_KEY&units=metric";
             $ch = curl_init();
 
             curl_setopt(handle: $ch, option: CURLOPT_RETURNTRANSFER, value: 1);
