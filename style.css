@@ -260,6 +260,12 @@ input{
     cursor: pointer;
 }
 
+#cap{
+    text-transform: capitalize;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
 .cloud {
     position: fixed;
     height:100vh;

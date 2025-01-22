@@ -137,7 +137,7 @@ $(document).ready(function(){
 
 //Popup with content
     var fontsizesmall = 1;
-    popup.setContent("Weatherdata:<br>" + "<img src=" + weathercondtioniconhtml + ">" +  weatherconditiondescription + "<br>Temperature: " + temperaturecelsius + "°C<br>Airpressure: " 
+    popup.setContent("Weatherdata:<br>" + "<img src=" + weathercondtioniconhtml + ">" + "<h4 id='cap'>" + weatherconditiondescription + "</h4>" + "<br>Temperature: " + temperaturecelsius + "°C<br>Airpressure: " 
         + airpressure + " hPa<br>Humidityt: " + airhumidity + "%" + "<br>Cloudcoverage: " + cloudcoverage + "%<br><br>Windspeed: " + windspeedkmh 
         + " km/h<br>Wind from direction: " + winddirectionstring + " (" + winddirection + "°)" + "<br><br><font size=" + fontsizesmall 
         + ">");           
@@ -304,7 +304,7 @@ function loadHistoryState() {
             ChildForm.name = "submit" + index;
             ChildForm.id = "history-window" + index;
             ChildForm.textContent = item.textContent;
-            child.onclick = `SubForm(${index})`;  // poprawne przypisanie funkcji onclick
+            child.onclick = `SubForm(${index})`;
         
             var HiddenInput = document.createElement("input");
             HiddenInput.setAttribute('style', 'display:none;');
@@ -335,15 +335,6 @@ document.addEventListener('click', (event) => {
         alert("⛅ Congrats! You found an easter egg! 🌤️");
     }
 });
-
-function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition);
-  } 
-  else {
-    div_loc.innerHTML = "Geolocation is not supported by this browser.";
-  }
-}
 
 function showPosition(position) {
     var lat = position.coords.latitude;
