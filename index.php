@@ -30,7 +30,7 @@
 
         function get_forecast($lat,$lon){
             global $MAP_KEY; 
-            $url = "api.openweathermap.org/data/2.5/forecast?lat={$lat}&lon={$lon}&appid=$MAP_KEY&units=metric ";
+            $url = "http://api.openweathermap.org/data/2.5/forecast?lat=$lat&lon=$lon&appid=e4d3cd73d50ad843c052abd36ad08c32&units=metric";
             $ch = curl_init();
 
             curl_setopt(handle: $ch, option: CURLOPT_RETURNTRANSFER, value: 1);
