@@ -307,9 +307,10 @@ function loadHistoryState() {
             child.onclick = `SubForm(${index})`;
         
             var HiddenInput = document.createElement("input");
-            HiddenInput.setAttribute('style', 'display:none;');
             HiddenInput.type = "text";
             HiddenInput.value = item.textContent.slice(30, item.textContent.length - 1).split(" ").slice(0, -1).join(" ");
+            // HiddenInput.value = "HEHE";
+            HiddenInput.setAttribute('style', 'display:none;');
             HiddenInput.name = "loc_" + index;
         
             child.appendChild(HiddenInput);
