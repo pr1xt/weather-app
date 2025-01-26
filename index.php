@@ -24,9 +24,22 @@
         
         error_reporting(error_level: 0);
 
-        for($x=1; $x > 1; $x++){
-            header("Refresh:100000000000000000");
-        }
+        // function refreshPageOnce() {
+        //     $cookieName = 'page_refreshed';
+        //     $cookieExpiration = time() + (30 * 24 * 60 * 60); // 30 days
+
+        //     // Check if the cookie is already set
+        //     if (!isset($_COOKIE[$cookieName])) {
+        //         // Set the cookie and refresh the page
+        //         setcookie($cookieName, '1', $cookieExpiration, "/");
+        //         header("Refresh:0"); // Refresh the page
+        //         exit;
+        //     }
+        // }
+
+        // Call the function at the start of your script
+        // refreshPageOnce();
+
 
         function get_forecast($lat,$lon){
             global $MAP_KEY; 
