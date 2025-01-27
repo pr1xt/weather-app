@@ -38,7 +38,6 @@
         }
 
         //Call the function at the start of your script
-        // refreshPageOnce();
 
 
         function get_forecast($lat,$lon){
@@ -123,12 +122,6 @@
 
                 $result = get_weather(loc: $location);    
             }
-        }
-
-        function generateRandomNumber($length = 11) {
-            $min = pow(10, $length - 1); // Smallest 11-digit number
-            $max = pow(10, $length) - 1; // Largest 11-digit number
-            return mt_rand($min, $max);
         }
 
 
