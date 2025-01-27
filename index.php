@@ -19,7 +19,7 @@
         
     <?php
         $MAP_KEY = "e4d3cd73d50ad843c052abd36ad08c32";
-        include "keys.php";
+        // include "keys.php";
         $date = date(format: "Y/m/d h:ia");
         
         error_reporting(error_level: 0);
@@ -38,7 +38,6 @@
         }
 
         //Call the function at the start of your script
-        refreshPageOnce();
 
 
         function get_forecast($lat,$lon){
@@ -124,58 +123,6 @@
                 $result = get_weather(loc: $location);    
             }
         }
-        //else{
-        //    if(isset($_POST["ChildForm0"])){
-        //        $location_1 = $_POST["loc_0"];
-        //
-        //        $result = get_weather(loc: $location_1);
-        //    }
-        //    if(isset($_POST["ChildForm1"])){
-        //        $location_2 = $_POST["loc_1"];
-        //
-        //        $result = get_weather(loc: $location_2);
-        //    }
-        //    if(isset($_POST["ChildForm2"])){
-        //        $location_3 = $_POST["loc_2"];
-        //
-        //        $result = get_weather(loc: $location_3);
-        //    }
-        //    if(isset($_POST["ChildForm3"])){
-        //        $location_4 = $_POST["loc_3"];
-        //        
-        //        $result = get_weather(loc: $location_4);
-        //    }
-        //    if(isset($_POST["ChildForm4"])){
-        //        $location_5 = $_POST["loc_4"];
-        //        
-        //        $result = get_weather(loc: $location_5);
-        //    }
-        //    else{
-        //        $result = get_weather(loc: "Ohio");
-        //    }
-        //}
-
-        function generateRandomNumber($length = 11) {
-            $min = pow(10, $length - 1); // Smallest 11-digit number
-            $max = pow(10, $length) - 1; // Largest 11-digit number
-            return mt_rand($min, $max);
-        }
-        
-        //function get_hist(){
-        //    if(!isset($_COOKIE["db_code"])) {
-        //        $num = generateRandomNumber();
-        //        setcookie("db_code",$num,time() + (86400 * 30));
-        //        $conn = @mysqli_connect('localhost', 'root', '', 'baza_pogoda');
-        //        $curr_date = date('Y-m-d');
-        //        $sql = "INSERT INTO users (GeneratedKey, start_date) VALUES ('$num', '$curr_date');";
-        //        mysqli_query($conn, $sql);
-        //        mysqli_close($conn); 
-        //    } else {
-        //        
-        //        
-        //    }
-        //};
-        //get_hist();
 
 
     ?>
@@ -296,56 +243,3 @@
     ?>
     <script src="script.js?<?php echo time(); ?>"></script>  
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 
-————————————— No Towers? ———————————
-⠀⣞⢽⢪⢣⢣⢣⢫⡺⡵⣝⡮⣗⢷⢽⢽⢽⣮⡷⡽⣜⣜⢮⢺⣜⢷⢽⢝⡽⣝
-⠸⡸⠜⠕⠕⠁⢁⢇⢏⢽⢺⣪⡳⡝⣎⣏⢯⢞⡿⣟⣷⣳⢯⡷⣽⢽⢯⣳⣫⠇
-⠀⠀⢀⢀⢄⢬⢪⡪⡎⣆⡈⠚⠜⠕⠇⠗⠝⢕⢯⢫⣞⣯⣿⣻⡽⣏⢗⣗⠏⠀
-⠀⠪⡪⡪⣪⢪⢺⢸⢢⢓⢆⢤⢀⠀⠀⠀⠀⠈⢊⢞⡾⣿⡯⣏⢮⠷⠁⠀⠀
-⠀⠀⠀⠈⠊⠆⡃⠕⢕⢇⢇⢇⢇⢇⢏⢎⢎⢆⢄⠀⢑⣽⣿⢝⠲⠉⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⡿⠂⠠⠀⡇⢇⠕⢈⣀⠀⠁⠡⠣⡣⡫⣂⣿⠯⢪⠰⠂⠀⠀⠀⠀
-⠀⠀⠀⠀⡦⡙⡂⢀⢤⢣⠣⡈⣾⡃⠠⠄⠀⡄⢱⣌⣶⢏⢊⠂⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⢝⡲⣜⡮⡏⢎⢌⢂⠙⠢⠐⢀⢘⢵⣽⣿⡿⠁⠁⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠨⣺⡺⡕⡕⡱⡑⡆⡕⡅⡕⡜⡼⢽⡻⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⣼⣳⣫⣾⣵⣗⡵⡱⡡⢣⢑⢕⢜⢕⡝⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⣴⣿⣾⣿⣿⣿⡿⡽⡑⢌⠪⡢⡣⣣⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⡟⡾⣿⢿⢿⢵⣽⣾⣼⣘⢸⢸⣞⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠁⠇⠡⠩⡫⢿⣝⡻⡮⣒⢽⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-——————————————————————————————————
- -->
-<!-- 
-——————————— No Queen ? ———————————
-⠀⣞⢽⢪⢣⢣⢣⢫⡺⡵⣝⡮⣗⢷⢽⢽⢽⣮⡷⡽⣜⣜⢮⢺⣜⢷⢽⢝⡽⣝
-⠸⡸⠜⠕⠕⠁⢁⢇⢏⢽⢺⣪⡳⡝⣎⣏⢯⢞⡿⣟⣷⣳⢯⡷⣽⢽⢯⣳⣫⠇
-⠀⠀⢀⢀⢄⢬⢪⡪⡎⣆⡈⠚⠜⠕⠇⠗⠝⢕⢯⢫⣞⣯⣿⣻⡽⣏⢗⣗⠏⠀
-⠀⠪⡪⡪⣪⢪⢺⢸⢢⢓⢆⢤⢀⠀⠀⠀⠀⠈⢊⢞⡾⣿⡯⣏⢮⠷⠁⠀⠀
-⠀⠀⠀⠈⠊⠆⡃⠕⢕⢇⢇⢇⢇⢇⢏⢎⢎⢆⢄⠀⢑⣽⣿⢝⠲⠉⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⡿⠂⠠⠀⡇⢇⠕⢈⣀⠀⠁⠡⠣⡣⡫⣂⣿⠯⢪⠰⠂⠀⠀⠀⠀
-⠀⠀⠀⠀⡦⡙⡂⢀⢤⢣⠣⡈⣾⡃⠠⠄⠀⡄⢱⣌⣶⢏⢊⠂⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⢝⡲⣜⡮⡏⢎⢌⢂⠙⠢⠐⢀⢘⢵⣽⣿⡿⠁⠁⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠨⣺⡺⡕⡕⡱⡑⡆⡕⡅⡕⡜⡼⢽⡻⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⣼⣳⣫⣾⣵⣗⡵⡱⡡⢣⢑⢕⢜⢕⡝⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⣴⣿⣾⣿⣿⣿⡿⡽⡑⢌⠪⡢⡣⣣⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⡟⡾⣿⢿⢿⢵⣽⣾⣼⣘⢸⢸⣞⡟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠁⠇⠡⠩⡫⢿⣝⡻⡮⣒⢽⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-——————————————————————————————————
- -->
