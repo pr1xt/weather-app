@@ -181,7 +181,7 @@ const ChangeBg = () => {
         document.getElementById("left_info").style.color = "rgb(209, 205, 205)";
     }
     else if(document.getElementById("text").innerText == "Light rain shower"){
-        document.body.style.background = "linear-gradient(100deg, rgb(33, 97, 194) 0%, rgb(32, 189, 201) 50%, rgb(178, 235, 22) 65%, rgb(93, 95, 86) 85%, rgb(22, 69, 201) 100%)";
+        document.body.style.background = "linear-gradient(90deg, rgba(181,213,28,1) 0%, rgba(104,104,136,1) 28%, rgba(94,109,146,1) 57%, rgba(38,97,142,1) 69%, rgba(32,63,142,1) 100%);";
     }
     else if(document.getElementById("text").innerText == "Light rain"){
         document.body.style.background = "linear-gradient(100deg, rgb(152, 167, 168) 0%, rgb(152, 167, 168) 50%, rgb(33, 97, 194) 100%)";
@@ -292,7 +292,7 @@ function loadHistoryState() {
     if (savedHistory) {
         const historyState = JSON.parse(savedHistory);
         historyState.forEach((item, index) => {
-            const child = document.createElement('form');
+            const child = document.createElement('div');
             child.className = 'ChildForm';
             child.id = 'ChildForm' + index;
             child.method = "POST";
@@ -304,13 +304,12 @@ function loadHistoryState() {
             ChildForm.name = "submit" + index;
             ChildForm.id = "history-window" + index;
             ChildForm.textContent = item.textContent;
-            child.onclick = `SubForm(${index})`;
+            //child.onclick = `SubForm(${index})`;
         
             var HiddenInput = document.createElement("input");
+            HiddenInput.setAttribute('style', 'display:none;');
             HiddenInput.type = "text";
             HiddenInput.value = item.textContent.slice(30, item.textContent.length - 1).split(" ").slice(0, -1).join(" ");
-            // HiddenInput.value = "HEHE";
-            HiddenInput.setAttribute('style', 'display:none;');
             HiddenInput.name = "loc_" + index;
         
             child.appendChild(HiddenInput);
@@ -324,7 +323,7 @@ function loadHistoryState() {
 
 // Load the history when the page is loaded
 window.addEventListener("load", loadHistoryState);
-document.getElementById("submit").addEventListener("click", addChild);
+document.getElementById("locForm").addEventListener("submit", addChild);
 
 //------------------------------------------------
 
