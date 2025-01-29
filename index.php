@@ -231,10 +231,10 @@
                     <div id="div-map">
                         <div id="map">
 
-                        </div> <!--|   |-->
-                    </div>     <!--|   |-->
-                </div>         <!--|   |__________  saddam hussein hiding spot-->
-            </div>             <!--|    O=###==;  |--> 
+                        </div> 
+                    </div> 
+                </div> 
+            </div>            
         </div>
         <img id="cloud1" class="cloud cloud-left" src="https://raw.githubusercontent.com/pr1xt/weather-app/refs/heads/main/cloud_left.png">
         <img id="cloud2" class="cloud cloud-right" src="https://raw.githubusercontent.com/pr1xt/weather-app/refs/heads/main/cloud_right.png">
